@@ -1,6 +1,6 @@
-# Lakes Cast
+# Lakes Caster
 
-Welcome to Lakes Cast. I hope this application is helping you understand surfing conditions on the Great Lakes and is also providing you the most optimal experience with checking the waves and planning your surf sessions.
+Welcome to Lakes Caster. I hope this application is helping you better understand surfing conditions on the Great Lakes as well as providing you the most optimal experience with checking the waves and planning your surf sessions.
 
 ## Purpose
 

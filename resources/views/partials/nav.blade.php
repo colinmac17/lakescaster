@@ -24,9 +24,9 @@
                                 <a class="dropdown-item" href="/spot/m/{{$aSpot['sShort']}}/{{$aSpot['iId']}}">{{$aSpot['sName']}}</a>
                             @endforeach
 
-                            @foreach($aaSpots as $aSpot)
-                                <a class="dropdown-item" href="/spot/m/{{$aSpot['sShort']}}/{{$aSpot['iId']}}">{{$aSpot['sName']}}</a>
-                            @endforeach
+                            {{--@foreach($aaSpots as $aSpot)--}}
+                                {{--<a class="dropdown-item" href="/spot/m/{{$aSpot['sShort']}}/{{$aSpot['iId']}}">{{$aSpot['sName']}}</a>--}}
+                            {{--@endforeach--}}
 
                         </div>
                     </li>

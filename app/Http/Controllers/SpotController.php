@@ -51,14 +51,12 @@ class SpotController extends Controller
         $spotId = $id;
         $spotName = $name;
         $mswKey = env('MAGICSEAWEED_API_KEY');
-
         $client = new \GuzzleHttp\Client();
 
         //MagicSeaweed
         $mswRes = $client->request('GET', env('MSW_API_ENDPOINT_START') . $mswKey . '/forecast/?spot_id=' . $id);
         $mswData = $mswRes->getBody();
         $aMswData = json_decode($mswData);
-        dd(SpotController::$aaSpotsByLatandLon);
 
         return view('spot', compact(['aMswData', 'asSpots']));
     }
