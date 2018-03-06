@@ -10,27 +10,26 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a id="spotDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Reports
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="spotDropdown">
-                            @foreach($asSurflineSpots as $aSpot)
-                                <a class="dropdown-item" href="/spot/s/{{$aSpot['sShort']}}/{{$aSpot['iId']}}">{{$aSpot['sName']}}</a>
-                            @endforeach
+                @if(isset($aaSurfLineSpots) || isset($asMswSpots))
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a id="spotDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Reports
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="spotDropdown">
 
-                            @foreach($asMswSpots as $aSpot)
-                                <a class="dropdown-item" href="/spot/m/{{$aSpot['sShort']}}/{{$aSpot['iId']}}">{{$aSpot['sName']}}</a>
-                            @endforeach
+                                @foreach($asSurflineSpots as $aSpot)
+                                    <a class="dropdown-item" href="/spot/s/{{$aSpot['sShort']}}/{{$aSpot['iId']}}">{{$aSpot['sName']}}</a>
+                                @endforeach
 
-                            {{--@foreach($aaSpots as $aSpot)--}}
-                                {{--<a class="dropdown-item" href="/spot/m/{{$aSpot['sShort']}}/{{$aSpot['iId']}}">{{$aSpot['sName']}}</a>--}}
-                            {{--@endforeach--}}
+                                @foreach($asMswSpots as $aSpot)
+                                    <a class="dropdown-item" href="/spot/m/{{$aSpot['sShort']}}/{{$aSpot['iId']}}">{{$aSpot['sName']}}</a>
+                                @endforeach
 
-                        </div>
-                    </li>
-                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                @endif
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">

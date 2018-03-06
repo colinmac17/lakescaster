@@ -38,7 +38,7 @@
                                 @endif
                             </div>
                         </div>
-
+                        <a href="/spot/michigan/montrose/1">Montrose</a>
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="checkbox">

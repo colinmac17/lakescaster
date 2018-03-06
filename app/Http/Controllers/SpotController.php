@@ -11,7 +11,7 @@ class SpotController extends Controller
     public $GLERL_ENDPOINT = 'http://data.glos.us/glcfs/glcfsps.glos?';
 
     public static $aaSpotsByLatandLon = [
-        ['name' => 'Montrose Beach', 'lake' => 'michigan', 'lat' => 41.9674 , 'long' => -87.6341]
+        ['id' => 1, 'name' => 'Montrose Beach', 'lake' => 'michigan', 'lat' => 41.9674 , 'long' => -87.6341]
     ];
 
     /*
@@ -64,8 +64,17 @@ class SpotController extends Controller
     /*
      * use GLERL Data
      */
-    public function findByLatAndLongitude()
+    public function findByLatAndLongitude($sLake, $sSpotName, $iId)
     {
-
+        $aSpot = SpotController::$aaSpotsByLatandLon[$iId - 1];
+        $iLong = $aSpot['long'];
+        $iLat = $aSpot['lat'];
+        $sStart =  date('Y-m-d:H:i:s');
+        $sEnd = date('Y-m-d:H:i:s', time() + (86400*4));
+        $sEndpoint = $this->GLERL_ENDPOINT . 'lake=' . $sLake . '&i=' . $iLong . '&j=' . $iLat . '&v=wvh,wvd,wvp&st=' . $sStart . '&et=' . $sEnd . '&u=e' . '&order=asc&pv=1&tzf=-6&f=csv';
+        $client = new \GuzzleHttp\Client();
+        $sRes = $client->request('GET', $sEndpoint);
+        $sData = $sRes->getBody();
+        dd($sData);
     }
 }
