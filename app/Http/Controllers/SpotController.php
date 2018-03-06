@@ -72,9 +72,16 @@ class SpotController extends Controller
         $sStart =  date('Y-m-d:H:i:s');
         $sEnd = date('Y-m-d:H:i:s', time() + (86400*4));
         $sEndpoint = $this->GLERL_ENDPOINT . 'lake=' . $sLake . '&i=' . $iLong . '&j=' . $iLat . '&v=wvh,wvd,wvp&st=' . $sStart . '&et=' . $sEnd . '&u=e' . '&order=asc&pv=1&tzf=-6&f=csv';
+        $txt_file    = file_get_contents($sEndpoint);
+        $rows        = explode("\n", $txt_file);
+        $formattedRows = [];
+        foreach($rows as $row){
+            $data = explode(',',$row);
+            $formattedRows[] = $data;
+        }
         $client = new \GuzzleHttp\Client();
         $sRes = $client->request('GET', $sEndpoint);
         $sData = $sRes->getBody();
-        dd($sData);
+        dd($formattedRows);
     }
 }
