@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-md navbar-light fixed-top navbar-laravel">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Surf Cast') }}
+                {{ config('app.name', 'Lakescaster') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -10,7 +10,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
-                @if(isset($aaSurfLineSpots) || isset($asMswSpots))
+                @if(isset($aaSpots))
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item dropdown">
                             <a id="spotDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -18,13 +18,10 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="spotDropdown">
 
-                                @foreach($asSurflineSpots as $aSpot)
-                                    <a class="dropdown-item" href="/spot/s/{{$aSpot['sShort']}}/{{$aSpot['iId']}}">{{$aSpot['sName']}}</a>
+                                @foreach($aaSpots as $aSpot)
+                                    <a class="dropdown-item" href="/spot/{{$aSpot['lake']}}/{{$aSpot['short']}}/{{$aSpot['id']}}">{{$aSpot['name']}}</a>
                                 @endforeach
 
-                                @foreach($asMswSpots as $aSpot)
-                                    <a class="dropdown-item" href="/spot/m/{{$aSpot['sShort']}}/{{$aSpot['iId']}}">{{$aSpot['sName']}}</a>
-                                @endforeach
 
                             </div>
                         </li>

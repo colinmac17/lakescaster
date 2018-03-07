@@ -15,10 +15,9 @@ use App\Http\Controllers\SpotController;
 
 //Landing Page
 Route::get('/', function () {
-    $asSurflineSpots = SpotController::$aaSurflineSpots;
-    $asMswSpots = SpotController::$aaMagicSeaweedSpots;
     $aaSpots = SpotController::$aaSpotsByLatandLon;
-    return view('welcome', compact('asSurflineSpots', 'asMswSpots', 'aaSpots'));
+    $aLakes = SpotController::$aLakes;
+    return view('welcome', compact('aaSpots', 'aLakes'));
 });
 
 Auth::routes();

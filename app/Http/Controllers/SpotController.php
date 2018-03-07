@@ -10,8 +10,15 @@ class SpotController extends Controller
 
     public $GLERL_ENDPOINT = 'http://data.glos.us/glcfs/glcfsps.glos?';
 
+    public static $aaTimeZones = ['America/Chicago', 'America/New_York'];
+
+    public static $aLakes = ['Michigan', 'Erie', 'Huron', 'Ontario', 'Superior'];
+
     public static $aaSpotsByLatandLon = [
-        ['id' => 1, 'name' => 'Montrose Beach', 'lake' => 'michigan', 'lat' => 41.9674 , 'long' => -87.6341]
+        //Montrose
+        ['id' => 1, 'name' => 'Montrose Beach', 'short' => 'montrose', 'lake' => 'michigan', 'city' => 'Chicago', 'lat' => 41.9674 , 'long' => -87.6341, 'tz' => 'America/Chicago'],
+        //57th Street
+        ['id' => 2, 'name' => '57th Street', 'short' => '57thstreet', 'lake' => 'michigan', 'city' => 'Chicago', 'lat' => 41.7930, 'long' => -87.5765, 'tz' => 'America/Chicago']
     ];
 
     /*
@@ -67,21 +74,58 @@ class SpotController extends Controller
     public function findByLatAndLongitude($sLake, $sSpotName, $iId)
     {
         $aSpot = SpotController::$aaSpotsByLatandLon[$iId - 1];
-        $iLong = $aSpot['long'];
-        $iLat = $aSpot['lat'];
-        $sStart =  date('Y-m-d:H:i:s');
-        $sEnd = date('Y-m-d:H:i:s', time() + (86400*4));
-        $sEndpoint = $this->GLERL_ENDPOINT . 'lake=' . $sLake . '&i=' . $iLong . '&j=' . $iLat . '&v=wvh,wvd,wvp&st=' . $sStart . '&et=' . $sEnd . '&u=e' . '&order=asc&pv=1&tzf=-6&f=csv';
-        $txt_file    = file_get_contents($sEndpoint);
-        $rows        = explode("\n", $txt_file);
+        $iLong = $aSpot['long']; //Longitdue of spot
+        $iLat = $aSpot['lat']; //Latitude of spot
+        $sTimeZone = $aSpot['tz'];
+
+        $sStart = $this->getStartTime($sTimeZone); //now
+        $sEnd = $this->getEndTime($sTimeZone); //5 days in future
+
+        $sTZOffset = $this->getTimeZoneOffset($sTimeZone);
+
+        $sEndpoint = $this->GLERL_ENDPOINT . 'lake=' . $sLake . '&i=' . $iLong . '&j=' . $iLat . '&v=wvh,wvd,wvp&t=forecast&st=' . $sStart . '&et=' . $sEnd . '&u=e' . '&order=asc&pv=1&tzf=' . $sTZOffset .'&f=csv';
+
+        $txt_file = file_get_contents($sEndpoint);
+        $rows = explode("\n", $txt_file);
         $formattedRows = [];
         foreach($rows as $row){
             $data = explode(',',$row);
             $formattedRows[] = $data;
         }
+
         $client = new \GuzzleHttp\Client();
         $sRes = $client->request('GET', $sEndpoint);
         $sData = $sRes->getBody();
         dd($formattedRows);
+    }
+
+    public function getTimeZoneOffset($sTimeZone)
+    {
+        $bIsDaylightSavingsTime = (date('I') === 1) ? true : false;
+        switch($sTimeZone){
+            case 'America/Chicago':
+                $sTZ = $bIsDaylightSavingsTime ? '-5' : '-6'; //Determine if Daylight Savings Time or Not
+                break;
+            case 'America/New_York':
+                $sTZ = $bIsDaylightSavingsTime ? '-4' : '-5'; //Determine if Daylight Savings Time or Not
+                break;
+        }
+
+        return $sTZ;
+    }
+
+    public function getStartTime($sTimeZone)
+    {
+        $dStart = new \DateTime();
+        $dStart->setTimeZone(new \DateTimeZone($sTimeZone));
+        return $dStart->format('Y-m-d:H:i:s'); //Now
+    }
+
+    public function getEndTime($sTimeZone)
+    {
+        $dStart = new \DateTime();
+        $dStart->setTimeZone(new \DateTimeZone($sTimeZone));
+        $dEnd = $dStart->modify('+5 day');
+        return $dEnd->format('Y-m-d:H:i:s'); // 5 days in future
     }
 }
