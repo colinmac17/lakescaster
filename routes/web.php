@@ -29,3 +29,10 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 //Route::get('/spot/m/{name}/{id}', 'SpotController@findByMagicSeaweedId');
 
 Route::get('/spot/{lake}/{spot}/{id}', 'SpotController@findByLatAndLongitude');
+
+
+//API Routes
+
+Route::get('/api/spots/{lake}/{spot}/{id}', 'APIController@getSpotById');
+Route::get('/api/spots/{lake}', 'APIController@getSpotsByLake');
+Route::get('/api/spots', 'APIController@getAllSpots');

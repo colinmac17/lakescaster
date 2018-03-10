@@ -13963,7 +13963,7 @@ module.exports = checkPropTypes;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(18);
-module.exports = __webpack_require__(60);
+module.exports = __webpack_require__(61);
 
 
 /***/ }),
@@ -13986,6 +13986,7 @@ __webpack_require__(19);
  */
 
 __webpack_require__(43);
+__webpack_require__(60);
 
 /***/ }),
 /* 19 */
@@ -53579,6 +53580,29 @@ module.exports = camelize;
 
 /***/ }),
 /* 60 */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+    helpers.backToTop();
+});
+
+//Create Helpers Object
+var helpers = {};
+
+// HELPER METHODS //
+
+/*
+  Functionality for Homepage back to top button
+ */
+helpers.backToTop = function () {
+    $('#backToTop').click(function () {
+        $('html,body').animate({ scrollTop: 0 }, 500);
+        return false;
+    });
+};
+
+/***/ }),
+/* 61 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -23,7 +23,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $asSpots = SpotController::$aaSpotsByLatandLon;
+        $aaSpots = SpotController::$aaSpotsByLatandLon;
         return view('dashboard', compact('aaSpots'));
     }
 }
