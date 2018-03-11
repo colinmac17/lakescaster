@@ -1,8 +1,8 @@
 <header>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top navbar-laravel">
-        <div class="container">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-laravel">
+        <div class="container-fluid">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Lakescaster') }}
+                <i class="ion-icon ion-radio-waves" style="font-size: 20px; margin-right:5px;"></i>{{ config('app.name', 'Lakescaster') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

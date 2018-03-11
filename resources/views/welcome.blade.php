@@ -1,7 +1,6 @@
 @extends('layouts.home')
 
 @section('content')
-
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -10,32 +9,32 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
+                    <img class="first-slide" src="https://res.cloudinary.com/soccerresume/image/upload/v1520714355/lakescaster/shlomo-shalev-576225-unsplash.jpg" alt="First slide">
                 <div class="container">
-                    <div class="carousel-caption text-left">
-                        <h1>Example headline.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                    <div class="carousel-caption text-center">
+                        <h1 class="text-light font-weight-bold">Understand Great Lake Surfing Conditions</h1>
+                        <p class="text-light font-weight-bold">Surfing on the lakes is much different than surfing in an ocean. The Lakescaster platform aims to simplify wave forecasting on the lakes to give you the optimal experience planning your sessions.</p>
+                        <p><button class="btn btn-lg btn-primary learn-more-btn">Learn More</button></p>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
+                <img class="second-slide" src="https://res.cloudinary.com/soccerresume/image/upload/v1520716173/lakescaster/austin-schmid-29637-unsplash.jpg" alt="Second slide">
                 <div class="container">
-                    <div class="carousel-caption">
-                        <h1>Another example headline.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    <div class="carousel-caption text-center">
+                        <h1 class="text-light font-weight-bold">Help Your Surf Community</h1>
+                        <p class="text-light font-weight-bold">Rate local surf spots and provide live feedback on current surfing conditions, allowing for a live look at current conditions.</p>
+                        <p><button class="btn btn-lg btn-primary learn-more-btn">Learn more</button></p>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
+                <img class="third-slide" src="https://res.cloudinary.com/soccerresume/image/upload/v1520714517/lakescaster/sam-wheeler-37727-unsplash.jpg" alt="Third slide">
                 <div class="container">
-                    <div class="carousel-caption text-right">
-                        <h1>One more for good measure.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                    <div class="carousel-caption text-center">
+                        <h1 class="text-light font-weight-bold">Join The Movement</h1>
+                        <p class="text-light font-weight-bold">There is a strong and growing Great Lake's surfing community throughout the midwest. Encourage friends to surf and paddle out at your local beach.</p>
+                        <p><button class="btn btn-lg btn-primary learn-more-btn">Learn More</button></p>
                     </div>
                 </div>
             </div>
@@ -55,26 +54,26 @@
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <div class="container marketing">
-
+    <div id="marketing" class="container marketing">
+        <h1 class="text-center p-5 font-weight-bold">How It Works</h1>
         <!-- Three columns of text below the carousel -->
         <div class="row">
             <div class="col-lg-4">
-                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+                <img class="rounded-circle mb-3" src="https://res.cloudinary.com/soccerresume/image/upload/v1520741542/lakescaster/Screen_Shot_2018-03-10_at_10.11.59_PM.png" alt="Generic placeholder image" width="140" height="140">
+                <h2>Check The Forecast</h2>
+                <p>Select a spot and check out current conditions and a five-day forecast.</p>
+                <p><a class="btn btn-secondary" href="" role="button">View Forecasts &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <img class="rounded-circle mb-3" src="https://res.cloudinary.com/soccerresume/image/upload/v1520741716/lakescaster/Screen_Shot_2018-03-10_at_10.14.54_PM.png" alt="Generic placeholder image" width="140" height="140">
+                <h2>Provide Feedback</h2>
+                <p>Rate surf spots, update users on live conditions, and more.</p>
                 <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
-                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                <h2>Heading</h2>
-                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                <img class="rounded-circle mb-3" src="https://res.cloudinary.com/soccerresume/image/upload/v1520741848/lakescaster/Screen_Shot_2018-03-10_at_10.17.06_PM.png" alt="Generic placeholder image" width="140" height="140">
+                <h2>Get Involved</h2>
+                <p>Submit pull requests to our open source platform, provide feedback, go surfing, repeat.</p>
                 <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
@@ -83,14 +82,14 @@
         <!-- START THE FEATURETTES -->
 
         <hr class="featurette-divider">
-
+        <h1 class="text-center p-5 font-weight-bold">Features</h1>
         <div class="row featurette">
             <div class="col-md-7">
-                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <h2 class="featurette-heading">Raw Surf Forecasting. <span class="text-muted">Check your local spot.</span></h2>
+                <p class="lead">We utilize buoy data from the Great Lakes Coastal Forecasting System to predict wave height, wave direction, wave period, wind velocity and wind direction.</p>
             </div>
             <div class="col-md-5">
-                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+                <img class="featurette-image img-fluid mx-auto" src="https://res.cloudinary.com/soccerresume/image/upload/v1520744105/lakescaster/hayden-hunt-269455-unsplash.jpg" alt="Surfer Walking On Beach">
             </div>
         </div>
 
@@ -98,11 +97,11 @@
 
         <div class="row featurette">
             <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <h2 class="featurette-heading">Provide User Feedback. <span class="text-muted">Create a better experience.</span></h2>
+                <p class="lead">By rating spots and posting live updates on current conditions, you help Great Lake's surfers make the most informed decision on whether they should paddle out. You also help us improve our platform. Yewww!</p>
             </div>
             <div class="col-md-5 order-md-1">
-                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+                <img class="featurette-image img-fluid mx-auto" src="https://res.cloudinary.com/soccerresume/image/upload/v1520744374/lakescaster/sebastian-leon-prado-562482-unsplash.jpg" alt="Stoke Sign">
             </div>
         </div>
 
@@ -110,11 +109,11 @@
 
         <div class="row featurette">
             <div class="col-md-7">
-                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <h2 class="featurette-heading">Jump On In. <span class="text-muted">Join the Surf Community.</span></h2>
+                <p class="lead">With plenty of beaches and breaks spread accross the five Great Lakes, the Surfing Community on the Greats continues to grow. From Chicago to Toronto, you can find surfers paddling out all year round.</p>
             </div>
             <div class="col-md-5">
-                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+                <img class="featurette-image img-fluid mx-auto" src="https://res.cloudinary.com/soccerresume/image/upload/v1520744354/lakescaster/julie-macey-275889-unsplash.jpg" alt="Surfer Jumping">
             </div>
         </div>
 

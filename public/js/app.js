@@ -53584,6 +53584,7 @@ module.exports = camelize;
 
 $(document).ready(function () {
     helpers.backToTop();
+    helpers.ScrollTo('#marketing', '.learn-more-btn');
 });
 
 //Create Helpers Object
@@ -53598,6 +53599,17 @@ helpers.backToTop = function () {
     $('#backToTop').click(function () {
         $('html,body').animate({ scrollTop: 0 }, 500);
         return false;
+    });
+};
+
+/*
+  Functionality to animate scroll to desired div with desired trigger
+ */
+helpers.ScrollTo = function (el, btn) {
+    $(btn).click(function () {
+        $('body, html').animate({
+            scrollTop: $(el).position().top - 100
+        }, 500);
     });
 };
 
