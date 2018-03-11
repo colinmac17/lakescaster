@@ -25,7 +25,7 @@ export default class Spot extends Component{
 
       return (
             <Fragment>
-                <h1 class="text-center">Spot</h1>
+                <h1 className="text-center">Spot</h1>
             </Fragment>
         )
     }

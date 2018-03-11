@@ -36222,7 +36222,7 @@ var Spot = function (_Component) {
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'h1',
-                    null,
+                    { className: 'text-center' },
                     'Spot'
                 )
             );
