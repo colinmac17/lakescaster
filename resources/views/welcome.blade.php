@@ -12,7 +12,7 @@
                     <img class="first-slide" src="https://res.cloudinary.com/soccerresume/image/upload/v1520714355/lakescaster/shlomo-shalev-576225-unsplash.jpg" alt="First slide">
                 <div class="container">
                     <div class="carousel-caption text-center">
-                        <h1 class="text-light font-weight-bold">Understand Great Lake Surfing Conditions</h1>
+                        <h1 class="text-light font-weight-bold">Great Lake Surfing Forecasts</h1>
                         <p class="text-light font-weight-bold">Surfing on the lakes is much different than surfing in an ocean. The Lakescaster platform aims to simplify wave forecasting on the lakes to give you the optimal experience planning your sessions.</p>
                         <p><button class="btn btn-lg btn-primary learn-more-btn">Learn More</button></p>
                     </div>
@@ -62,19 +62,19 @@
                 <img class="rounded-circle mb-3" src="https://res.cloudinary.com/soccerresume/image/upload/v1520741542/lakescaster/Screen_Shot_2018-03-10_at_10.11.59_PM.png" alt="Generic placeholder image" width="140" height="140">
                 <h2>Check The Forecast</h2>
                 <p>Select a spot and check out current conditions and a five-day forecast.</p>
-                <p><a class="btn btn-secondary" href="" role="button">View Forecasts &raquo;</a></p>
+                <p><a id="forecastingBtn" class="btn btn-secondary how-it-works-btn" href="#" role="button">Learn More</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 <img class="rounded-circle mb-3" src="https://res.cloudinary.com/soccerresume/image/upload/v1520741716/lakescaster/Screen_Shot_2018-03-10_at_10.14.54_PM.png" alt="Generic placeholder image" width="140" height="140">
                 <h2>Provide Feedback</h2>
                 <p>Rate surf spots, update users on live conditions, and more.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                <p><a id="feedbackBtn" class="btn btn-secondary how-it-works-btn" href="#" role="button">Learn More</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 <img class="rounded-circle mb-3" src="https://res.cloudinary.com/soccerresume/image/upload/v1520741848/lakescaster/Screen_Shot_2018-03-10_at_10.17.06_PM.png" alt="Generic placeholder image" width="140" height="140">
                 <h2>Get Involved</h2>
                 <p>Submit pull requests to our open source platform, provide feedback, go surfing, repeat.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                <p><a id="communityBtn" class="btn btn-secondary how-it-works-btn" href="#" role="button">Learn More</a></p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
 
@@ -84,7 +84,7 @@
         <hr class="featurette-divider">
         <h1 class="text-center p-5 font-weight-bold">Features</h1>
         <div class="row featurette">
-            <div class="col-md-7">
+            <div class="col-md-7" id="forecastFeature">
                 <h2 class="featurette-heading">Raw Surf Forecasting. <span class="text-muted">Check your local spot.</span></h2>
                 <p class="lead">We utilize buoy data from the Great Lakes Coastal Forecasting System to predict wave height, wave direction, wave period, wind velocity and wind direction.</p>
             </div>
@@ -96,7 +96,7 @@
         <hr class="featurette-divider">
 
         <div class="row featurette">
-            <div class="col-md-7 order-md-2">
+            <div class="col-md-7 order-md-2" id="feedbackFeature">
                 <h2 class="featurette-heading">Provide User Feedback. <span class="text-muted">Create a better experience.</span></h2>
                 <p class="lead">By rating spots and posting live updates on current conditions, you help Great Lake's surfers make the most informed decision on whether they should paddle out. You also help us improve our platform. Yewww!</p>
             </div>
@@ -108,7 +108,7 @@
         <hr class="featurette-divider">
 
         <div class="row featurette">
-            <div class="col-md-7">
+            <div class="col-md-7" id="communityFeature">
                 <h2 class="featurette-heading">Jump On In. <span class="text-muted">Join the Surf Community.</span></h2>
                 <p class="lead">With plenty of beaches and breaks spread accross the five Great Lakes, the Surfing Community on the Greats continues to grow. From Chicago to Toronto, you can find surfers paddling out all year round.</p>
             </div>
@@ -123,7 +123,5 @@
 
     </div><!-- /.container -->
 
-
-    @include('partials.footer')
 
 @endsection

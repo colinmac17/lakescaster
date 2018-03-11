@@ -25,6 +25,9 @@
 
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/developers" role="button">Developers</a>
+                        </li>
                     </ul>
                 @endif
 

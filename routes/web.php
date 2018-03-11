@@ -16,8 +16,12 @@ use App\Http\Controllers\SpotController;
 //Landing Page
 Route::get('/', function () {
     $aaSpots = SpotController::$aaSpotsByLatandLon;
-    $aLakes = SpotController::$aLakes;
-    return view('welcome', compact('aaSpots', 'aLakes'));
+    return view('welcome', compact('aaSpots'));
+});
+
+Route::get('/developers', function(){
+    $aaSpots = SpotController::$aaSpotsByLatandLon;
+    return view('developers', compact('aaSpots'));
 });
 
 Auth::routes();

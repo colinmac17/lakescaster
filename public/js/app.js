@@ -53585,6 +53585,9 @@ module.exports = camelize;
 $(document).ready(function () {
     helpers.backToTop();
     helpers.ScrollTo('#marketing', '.learn-more-btn');
+    helpers.ScrollTo('#feedbackFeature', '#feedbackBtn');
+    helpers.ScrollTo('#communityFeature', '#communityBtn');
+    helpers.ScrollTo('#forecastFeature', '#forecastingBtn');
 });
 
 //Create Helpers Object
