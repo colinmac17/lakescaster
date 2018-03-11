@@ -16,9 +16,9 @@ class SpotController extends Controller
 
     public static $aaSpotsByLatandLon = [
         //Montrose
-        ['id' => 1, 'name' => 'Montrose Beach', 'short' => 'montrose', 'lake' => 'michigan', 'city' => 'Chicago', 'lat' => 41.9674 , 'long' => -87.6341, 'tz' => 'America/Chicago'],
+        ['id' => 1, 'name' => 'Montrose Beach', 'short' => 'montrose', 'lake' => 'michigan', 'city' => 'Chicago', 'lat' => 41.9674 , 'long' => -87.6341, 'tz' => 'America/Chicago', 'sPhoto' => ''],
         //57th Street
-        ['id' => 2, 'name' => '57th Street', 'short' => '57thstreet', 'lake' => 'michigan', 'city' => 'Chicago', 'lat' => 41.7930, 'long' => -87.5765, 'tz' => 'America/Chicago']
+        ['id' => 2, 'name' => '57th Street', 'short' => '57thstreet', 'lake' => 'michigan', 'city' => 'Chicago', 'lat' => 41.7930, 'long' => -87.5765, 'tz' => 'America/Chicago', 'sPhoto' => '']
     ];
 
     /*
@@ -73,30 +73,11 @@ class SpotController extends Controller
      */
     public function findByLatAndLongitude($sLake, $sSpotName, $iId)
     {
-        $aSpot = SpotController::$aaSpotsByLatandLon[$iId - 1];
-        $iLong = $aSpot['long']; //Longitdue of spot
-        $iLat = $aSpot['lat']; //Latitude of spot
-        $sTimeZone = $aSpot['tz'];
-
-        $sStart = $this->getStartTime($sTimeZone); //now
-        $sEnd = $this->getEndTime($sTimeZone); //5 days in future
-
-        $sTZOffset = $this->getTimeZoneOffset($sTimeZone);
-
-        $sEndpoint = $this->GLERL_ENDPOINT . 'lake=' . $sLake . '&i=' . $iLong . '&j=' . $iLat . '&v=wvh,wvd,wvp&t=forecast&st=' . $sStart . '&et=' . $sEnd . '&u=e' . '&order=asc&pv=1&tzf=' . $sTZOffset .'&f=csv';
-
-        $txt_file = file_get_contents($sEndpoint);
-        $rows = explode("\n", $txt_file);
-        $formattedRows = [];
-        foreach($rows as $row){
-            $data = explode(',',$row);
-            $formattedRows[] = $data;
-        }
-
-        $client = new \GuzzleHttp\Client();
-        $sRes = $client->request('GET', $sEndpoint);
-        $sData = $sRes->getBody();
-        dd($formattedRows);
+        $aaSpots = SpotController::$aaSpotsByLatandLon;
+        $aSpot = $aaSpots[$iId -1];
+        $sName = $aSpot['name'];
+        $sPath = 'spots/' . $sLake . '/' . $sSpotName . '/' . $iId;
+        return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath'));
     }
 
     public function getTimeZoneOffset($sTimeZone)

@@ -33,7 +33,7 @@ class APIController extends Controller
         $client = new \GuzzleHttp\Client();
         $sRes = $client->request('GET', $sEndpoint);
         $sData = $sRes->getBody();
-        dd($formattedRows);
+        return $formattedRows;
     }
 
     public function getSpotsByLake($lake)

@@ -86,7 +86,7 @@
         <div class="row featurette">
             <div class="col-md-7" id="forecastFeature">
                 <h2 class="featurette-heading">Raw Surf Forecasting. <span class="text-muted">Check your local spot.</span></h2>
-                <p class="lead">We utilize buoy data from the Great Lakes Coastal Forecasting System to predict wave height, wave direction, wave period, wind velocity and wind direction.</p>
+                <p class="lead">Our platform utilize buoy data from the Great Lakes Coastal Forecasting System to predict wave height, wave direction, wave period, wind velocity and wind direction.</p>
             </div>
             <div class="col-md-5">
                 <img class="featurette-image img-fluid mx-auto" src="https://res.cloudinary.com/soccerresume/image/upload/v1520744105/lakescaster/hayden-hunt-269455-unsplash.jpg" alt="Surfer Walking On Beach">

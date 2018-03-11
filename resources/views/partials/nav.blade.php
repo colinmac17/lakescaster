@@ -19,7 +19,7 @@
                             <div class="dropdown-menu" aria-labelledby="spotDropdown">
 
                                 @foreach($aaSpots as $aSpot)
-                                    <a class="dropdown-item" href="/spot/{{$aSpot['lake']}}/{{$aSpot['short']}}/{{$aSpot['id']}}">{{$aSpot['name']}}</a>
+                                    <a class="dropdown-item" href="/spots/{{$aSpot['lake']}}/{{$aSpot['short']}}/{{$aSpot['id']}}">{{$aSpot['name']}}</a>
                                 @endforeach
 
 
