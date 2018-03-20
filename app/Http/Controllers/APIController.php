@@ -23,8 +23,8 @@ class APIController extends Controller
         $sTZOffset = $oSpotController->getTimeZoneOffset($sTimeZone);
 
        $aWaveData = $this->getWaveData($sLake, $iLat, $iLong, $sStart, $sEnd, $sTZOffset);
-       $aWeatherForecastData = $this->getWeatherForecast($iZip);
-       $aWeatherNowData = $this->getCurrentWeather($iZip);
+       $aWeatherForecastData = $this->getWeatherForecast($iLat, $iLong);
+       $aWeatherNowData = $this->getCurrentWeather($iLat, $iLong);
 
        return ['surfData' => $aWaveData, 'weatherForecast' => $aWeatherForecastData, 'currentWeather' => $aWeatherNowData];
     }
@@ -35,9 +35,9 @@ class APIController extends Controller
      * @param $iZip
      * @return array
      */
-    public function getWeatherForecast($iZip)
+    public function getWeatherForecast($iLat, $iLong)
     {
-        $sWeatherForecastEndpoint = 'api.openweathermap.org/data/2.5/forecast?zip=' . $iZip . '&units=imperial&appid=' . env('OPEN_WEATHER_API_KEY');
+        $sWeatherForecastEndpoint = 'api.openweathermap.org/data/2.5/forecast?lat=' . $iLat . '&lon=' . $iLong . '&units=imperial&appid=' . env('OPEN_WEATHER_API_KEY');
 
         $client = new \GuzzleHttp\Client();
         $weatherRes = $client->request('GET', $sWeatherForecastEndpoint);
@@ -51,9 +51,9 @@ class APIController extends Controller
      * @param $iZip
      * @return array
      */
-    public function getCurrentWeather($iZip)
+    public function getCurrentWeather($iLat, $iLong)
     {
-        $sWeatherNowEndpoint = 'api.openweathermap.org/data/2.5/weather?zip=' . $iZip . '&units=imperial&appid=' . env('OPEN_WEATHER_API_KEY');
+        $sWeatherNowEndpoint = 'api.openweathermap.org/data/2.5/weather?lat=' . $iLat . '&lon=' . $iLong . '&units=imperial&appid=' . env('OPEN_WEATHER_API_KEY');
 
         $client = new \GuzzleHttp\Client();
         $weatherRes = $client->request('GET', $sWeatherNowEndpoint);
