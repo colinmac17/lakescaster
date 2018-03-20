@@ -36194,7 +36194,8 @@ var Spot = function (_Component) {
 
         _this.state = {
             apiPath: window.location.origin + '/api/' + _this.props.path,
-            data: []
+            data: [],
+            date: _this.props.date
         };
         return _this;
     }
@@ -36205,7 +36206,6 @@ var Spot = function (_Component) {
             var _this2 = this;
 
             var path = this.state.apiPath;
-
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(path).then(function (res) {
                 console.log(res.data);
                 _this2.setState({ data: res.data });
@@ -36216,14 +36216,13 @@ var Spot = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'h1',
+                    'h3',
                     { className: 'text-center' },
-                    'Spot'
+                    this.state.date
                 )
             );
         }
