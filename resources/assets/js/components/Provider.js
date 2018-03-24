@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import axios from "axios/index";
-import ReactDOM from "react-dom";
-import Spot from './Spot/Spot';
 
 const MyContext = React.createContext();
 

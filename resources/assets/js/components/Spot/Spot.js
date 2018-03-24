@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react';
 import SpotTabs from './SpotTabs';
 import Provider, {MyContext} from '../Provider';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
-
 
 export default class Spot extends Component{
     constructor(props){
