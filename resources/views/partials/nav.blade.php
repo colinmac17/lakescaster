@@ -28,6 +28,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/developers" role="button">Developers</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link"><span class="badge badge-info top-banner-message">Always Free and Open Source</span></a>
+                        </li>
                     </ul>
                 @endif
 

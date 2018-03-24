@@ -60,20 +60,20 @@
         <div class="row">
             <div class="col-lg-4">
                 <img class="rounded-circle mb-3" src="https://res.cloudinary.com/soccerresume/image/upload/v1520741542/lakescaster/Screen_Shot_2018-03-10_at_10.11.59_PM.png" alt="Generic placeholder image" width="140" height="140">
-                <h2>Check The Forecast</h2>
+                <h2><span class="badge badge-success">Check The Forecast</span></h2>
                 <p>Select a spot and check out current conditions and a five-day forecast.</p>
                 <p><a id="forecastingBtn" class="btn btn-secondary how-it-works-btn" href="#" role="button">Learn More</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 <img class="rounded-circle mb-3" src="https://res.cloudinary.com/soccerresume/image/upload/v1520741716/lakescaster/Screen_Shot_2018-03-10_at_10.14.54_PM.png" alt="Generic placeholder image" width="140" height="140">
-                <h2>Provide Feedback</h2>
+                <h2><span class="badge badge-success">Provide Feedback</span></h2>
                 <p>Rate surf spots, update users on live conditions, and more.</p>
                 <p><a id="feedbackBtn" class="btn btn-secondary how-it-works-btn" href="#" role="button">Learn More</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 <img class="rounded-circle mb-3" src="https://res.cloudinary.com/soccerresume/image/upload/v1520741848/lakescaster/Screen_Shot_2018-03-10_at_10.17.06_PM.png" alt="Generic placeholder image" width="140" height="140">
-                <h2>Get Involved</h2>
-                <p>Submit pull requests to our open source platform, provide feedback, go surfing, repeat.</p>
+                <h2><span class="badge badge-success">Get Involved</span></h2>
+                <p>Submit pull requests, provide feedback, go surfing, repeat.</p>
                 <p><a id="communityBtn" class="btn btn-secondary how-it-works-btn" href="#" role="button">Learn More</a></p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
@@ -87,6 +87,7 @@
             <div class="col-md-7" id="forecastFeature">
                 <h2 class="featurette-heading">Raw Surf Forecasting. <span class="text-muted">Check your local spot.</span></h2>
                 <p class="lead">Our platform utilize buoy data from the Great Lakes Coastal Forecasting System to predict wave height, wave direction, wave period, wind velocity and wind direction.</p>
+                <p class="text-center"><a href="/register" role="button" class="btn btn-primary btn-lg">Sign Up</a></p>
             </div>
             <div class="col-md-5">
                 <img class="featurette-image img-fluid mx-auto" src="https://res.cloudinary.com/soccerresume/image/upload/v1520744105/lakescaster/hayden-hunt-269455-unsplash.jpg" alt="Surfer Walking On Beach">
@@ -99,6 +100,7 @@
             <div class="col-md-7 order-md-2" id="feedbackFeature">
                 <h2 class="featurette-heading">Provide User Feedback. <span class="text-muted">Create a better experience.</span></h2>
                 <p class="lead">By rating spots and posting live updates on current conditions, you help Great Lake's surfers make the most informed decision on whether they should paddle out. You also help us improve our platform. Yewww!</p>
+                <p class="text-center"><a href="/register" role="button" class="btn btn-primary btn-lg">Sign Up</a></p>
             </div>
             <div class="col-md-5 order-md-1">
                 <img class="featurette-image img-fluid mx-auto" src="https://res.cloudinary.com/soccerresume/image/upload/v1520744374/lakescaster/sebastian-leon-prado-562482-unsplash.jpg" alt="Stoke Sign">
@@ -111,6 +113,7 @@
             <div class="col-md-7" id="communityFeature">
                 <h2 class="featurette-heading">Jump On In. <span class="text-muted">Join the Surf Community.</span></h2>
                 <p class="lead">With plenty of beaches and breaks spread accross the five Great Lakes, the Surfing Community on the Greats continues to grow. From Chicago to Toronto, you can find surfers paddling out all year round.</p>
+                <p class="text-center"><a href="/register" role="button" class="btn btn-primary btn-lg">Sign Up</a></p>
             </div>
             <div class="col-md-5">
                 <img class="featurette-image img-fluid mx-auto" src="https://res.cloudinary.com/soccerresume/image/upload/v1520744354/lakescaster/julie-macey-275889-unsplash.jpg" alt="Surfer Jumping">

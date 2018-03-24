@@ -10054,6 +10054,11 @@ body {
   font-family: 'Play', sans-serif;
 }
 
+.top-banner-message {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
 .main {
   padding-top: 80px !important;
   padding-bottom: 20px !important;
@@ -10162,5 +10167,26 @@ body {
   .featurette-heading {
     margin-top: 7rem;
   }
+}
+
+.btn-primary {
+  background-color: #12126c;
+  border-color: #12126c;
+}
+
+.spot-nav-underline {
+  border-bottom: 2px solid #12126c;
+}
+
+.nav-tabs {
+  border: none;
+}
+
+.spot-name {
+  font-weight: 900;
+}
+
+.spot-heading {
+  margin-bottom: 20px;
 }
 
