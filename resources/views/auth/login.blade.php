@@ -54,6 +54,9 @@
                                     Login
                                 </button>
 
+                                <a href="{{ url('login/google') }}" class="btn btn-danger">Login With Google <i class="fab fa-google-plus-g"></i>
+                                </a>
+
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?
                                 </a>

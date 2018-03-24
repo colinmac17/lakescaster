@@ -4,6 +4,8 @@ $(document).ready(function(){
     helpers.ScrollTo('#feedbackFeature', '#feedbackBtn');
     helpers.ScrollTo('#communityFeature', '#communityBtn');
     helpers.ScrollTo('#forecastFeature', '#forecastingBtn');
+    helpers.closeFlashMessage();
+    helpers.handleAccountDeletion();
 });
 
 //Create Helpers Object
@@ -29,5 +31,21 @@ helpers.ScrollTo = (el, btn) => {
         $('body, html').animate({
             scrollTop: $(el).position().top - 100
         }, 500);
+    });
+}
+
+helpers.closeFlashMessage = () => {
+    $('#close-flash').on('click', function(e){
+        e.preventDefault();
+        $('#flash-message').remove();
+    });
+}
+
+helpers.handleAccountDeletion = () => {
+    $('#delete-account').click((e) => {
+        e.preventDefault();
+        if(confirm('Are you sure you want to delete your account? All of your data will be lost.')){
+            document.getElementById('delete-form').submit();
+        } else return false;
     });
 }

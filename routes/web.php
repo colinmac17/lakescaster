@@ -25,19 +25,27 @@ Route::get('developers', function(){
     return view('developers', compact('aaSpots'));
 });
 
+//Email Auth Routes
 Auth::routes();
 
+//Social Auth Routes
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
+//User Account Routes
+Route::post('/account/delete', 'AccountController@deleteAccount');
+Route::get('user/settings', 'AccountController@index');
+
+// App Routes
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-
-//Route::get('/spot/s/{name}/{id}', 'SpotController@findBySurflineId');
-
-//Route::get('/spot/m/{name}/{id}', 'SpotController@findByMagicSeaweedId');
-
 Route::get('spots/{lake}/{spot}/{id}', 'SpotController@findByLatAndLongitude');
 
 
 //API Routes
-
 Route::get('api/spots/{lake}/{spot}/{id}', 'APIController@getSpotById');
 Route::get('api/spots/{lake}', 'APIController@getSpotsByLake');
 Route::get('api/spots', 'APIController@getAllSpots');
+
+
+//Route::get('/spot/s/{name}/{id}', 'SpotController@findBySurflineId');
+//Route::get('/spot/m/{name}/{id}', 'SpotController@findByMagicSeaweedId');

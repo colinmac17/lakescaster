@@ -14,7 +14,7 @@ const SpotTabs = (props) => {
              <li className="nav-item">
                  <a className="nav-link" id="profile-tab" data-toggle="tab" href="#forecast" role="tab" aria-controls="forecast" aria-selected="false">Forecast</a>
              </li>
-             <li className="nav-item disabled">
+             <li className="nav-item">
                  <a className="nav-link disabled" id="contact-tab" data-toggle="tab" href="#media" role="tab" aria-controls="media" aria-selected="false">Media <span className="badge badge-info">Comin Soon</span></a>
              </li>
              <li className="nav-item">

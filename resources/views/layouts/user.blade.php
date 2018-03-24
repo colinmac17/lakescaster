@@ -6,6 +6,7 @@
 <body>
     <div id="app">
         @include('partials.nav')
+        @include('partials.flash')
         <main class="main container py-4">
             @yield('content')
         </main>

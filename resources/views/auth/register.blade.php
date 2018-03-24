@@ -66,6 +66,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
+                                <a href="{{ url('login/google') }}" class="btn btn-danger">Register With Google <i class="fab fa-google-plus-g"></i>
+                                </a>
                             </div>
                         </div>
                     </form>

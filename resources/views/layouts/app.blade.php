@@ -6,6 +6,7 @@
     @include('partials.nav')
 
     <main class="main">
+        @include('partials.flash')
         @yield('content')
     </main>
 

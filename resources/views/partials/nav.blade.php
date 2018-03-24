@@ -10,8 +10,8 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
-                @if(isset($aaSpots))
                     <ul class="navbar-nav mr-auto">
+                        @if(isset($aaSpots))
                         <li class="nav-item dropdown">
                             <a id="spotDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Reports
@@ -25,6 +25,7 @@
 
                             </div>
                         </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link" href="/developers" role="button">Developers</a>
                         </li>
@@ -32,7 +33,6 @@
                             <a class="nav-link"><span class="badge badge-info top-banner-message">Always Free and Open Source</span></a>
                         </li>
                     </ul>
-                @endif
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
