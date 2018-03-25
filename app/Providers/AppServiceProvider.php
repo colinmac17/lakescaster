@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
         //
         Schema::defaultStringLength(191);
         // Force SSL in production
-        if ($this->app->environment() == 'production') {
+        if (env('herokustate') == 'production') {
             URL::forceScheme('https');
         }
     }
