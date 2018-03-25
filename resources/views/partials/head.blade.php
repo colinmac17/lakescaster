@@ -10,5 +10,5 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
     <title>{{ config('app.name', 'Surf Cast') }}</title>
     <!-- Styles -->
-    <link href="/public/css/app.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
 </head>
