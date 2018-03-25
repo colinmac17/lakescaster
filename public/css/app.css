@@ -10190,3 +10190,33 @@ body {
   margin-bottom: 20px;
 }
 
+.email-form-field {
+  display: none;
+}
+
+.facebook-button {
+  background-color: #4267b2;
+  color: #fff;
+}
+
+.google-button {
+  background-color: #db3236;
+  color: #fff;
+}
+
+.google-button:hover,
+.facebook-button:hover {
+  color: #fff;
+  opacity: 0.9;
+}
+
+@media (max-width: 575px) {
+  .facebook-button {
+    margin-top: 10px;
+  }
+
+  .google-button {
+    margin-bottom: 10px;
+  }
+}
+

@@ -8,6 +8,19 @@
                 <div class="card-header">Login</div>
 
                 <div class="card-body">
+                    <div class="row form-group justify-content-center">
+                        <div class="col-md-4 offset-md-1 col-sm-6">
+                            <a href="{{ url('login/google') }}" class="btn google-button">Login With Google <i class="fab fa-google-plus-g"></i>
+                            </a>
+                        </div>
+                        <div class="col-md-4 offset-md-1 col-sm-6">
+                            <a href="{{ url('login/facebook') }}" class="btn facebook-button">Login With Facebook <i class="fab fa-facebook"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                    <h3 class="text-center">OR</h3>
+                    <hr/>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -53,9 +66,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
-
-                                <a href="{{ url('login/google') }}" class="btn btn-danger">Login With Google <i class="fab fa-google-plus-g"></i>
-                                </a>
 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?

@@ -6,6 +6,7 @@ $(document).ready(function(){
     helpers.ScrollTo('#forecastFeature', '#forecastingBtn');
     helpers.closeFlashMessage();
     helpers.handleAccountDeletion();
+    helpers.toggleEmailRegistrationForm();
 });
 
 //Create Helpers Object
@@ -45,7 +46,16 @@ helpers.handleAccountDeletion = () => {
     $('#delete-account').click((e) => {
         e.preventDefault();
         if(confirm('Are you sure you want to delete your account? All of your data will be lost.')){
-            document.getElementById('delete-form').submit();
+            $('#delete-form').submit();
         } else return false;
+    });
+}
+
+helpers.toggleEmailRegistrationForm = () => {
+    $('#registerEmailBtn').click(e => {
+       e.preventDefault();
+       $('.google-button').hide();
+       $('.facebook-button').hide();
+       $('.email-form-field').fadeIn(500);
     });
 }

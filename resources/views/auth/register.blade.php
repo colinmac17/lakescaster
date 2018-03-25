@@ -8,6 +8,18 @@
                 <div class="card-header">Register</div>
 
                 <div class="card-body">
+                    <div class="row form-group justify-content-center">
+                        <div class="col-md-4 offset-md-1 col-sm-6">
+                            <a href="{{ url('login/google') }}" class="btn google-button">Register With Google <i class="fab fa-google-plus-g"></i>
+                            </a>
+                        </div>
+                        <div class="col-md-4 offset-md-1 col-sm-6">
+                            <a href="{{ url('login/facebook') }}" class="btn facebook-button ">Register With Facebook <i class="fab fa-facebook"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="text-center">OR</h3>
+                    <hr />
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -66,8 +78,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
-                                <a href="{{ url('login/google') }}" class="btn btn-danger">Register With Google <i class="fab fa-google-plus-g"></i>
-                                </a>
                             </div>
                         </div>
                     </form>

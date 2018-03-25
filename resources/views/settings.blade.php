@@ -17,7 +17,7 @@
 
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><a id="delete-account" href="/account/logout" class="text-danger" class="text-danger">Delete Account</a> </li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
+                            <li class="list-group-item"><a class="text-primary" href="/password/reset">Reset Password</a></li>
                             <li class="list-group-item">Vestibulum at eros</li>
                         </ul>
 
