@@ -13,6 +13,10 @@
 
 use App\Http\Controllers\SpotController;
 
+if (env('herokustate') == 'production') {
+    URL::forceScheme('https');
+}
+
 //Landing Page
 Route::get('/', function () {
     $aaSpots = SpotController::$aaSpotsByLatandLon;
