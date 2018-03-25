@@ -29,13 +29,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/developers" role="button">Developers</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link"><span class="badge badge-info top-banner-message">Always Free and Open Source</span></a>
-                        </li>
+                        {{--<li class="nav-item">--}}
+                            {{--<a class="nav-link"><span class="badge badge-info top-banner-message">Always Free and Open Source</span></a>--}}
+                        {{--</li>--}}
                     </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
+                    {{--<form id="searchForm" class="form-inline mr-5" method="POST" action="spot/search">--}}
+                        {{--@csrf--}}
+                        {{--<input id="searchInput" class="form-control mr-sm-2" name="search" type="text" placeholder="Search" aria-label="Search" required>--}}
+                        {{--<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>--}}
+                    {{--</form>--}}
                     <!-- Authentication Links -->
                     @guest
                         <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>

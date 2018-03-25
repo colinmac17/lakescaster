@@ -54568,6 +54568,7 @@ $(document).ready(function () {
     helpers.closeFlashMessage();
     helpers.handleAccountDeletion();
     helpers.toggleEmailRegistrationForm();
+    helpers.searchSpot();
 });
 
 //Create Helpers Object
@@ -54618,6 +54619,22 @@ helpers.toggleEmailRegistrationForm = function () {
         $('.google-button').hide();
         $('.facebook-button').hide();
         $('.email-form-field').fadeIn(500);
+    });
+};
+
+helpers.searchSpot = function () {
+    $('#searchInput').keyup(function (e) {
+        var search = $('#searchInput').val();
+        $.ajax({
+            url: '/spot/search',
+            data: { search: search },
+            datatype: "json",
+            type: "POST",
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            success: function success(result) {
+                console.log(result);
+            }
+        });
     });
 };
 

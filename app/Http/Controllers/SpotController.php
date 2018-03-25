@@ -8,6 +8,11 @@ use \GuzzleHttp\Client;
 class SpotController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->aSimpleSpots = self::getSimpleSpots();
+    }
+
     public $GLERL_ENDPOINT = 'http://data.glos.us/glcfs/glcfsps.glos?';
 
     public static $aaTimeZones = ['America/Chicago', 'America/New_York'];
@@ -62,6 +67,27 @@ class SpotController extends Controller
         $dStart->setTimeZone(new \DateTimeZone($sTimeZone));
         $dEnd = $dStart->modify('+5 day');
         return $dEnd->format('Y-m-d:H:i:s'); // 5 days in future
+    }
+
+    public function searchSpots()
+    {
+        if(!isset($_POST['search'])) return false;
+        $sSearch = strtolower($_POST['search']);
+        $aSimpleSpots = $this->aSimpleSpots;
+        $sSearch = preg_quote($sSearch, '~');
+        $results = preg_grep('~' . $sSearch . '~', $aSimpleSpots);
+        return $results;
+    }
+
+    public static function getSimpleSpots()
+    {
+        $aSimpleSpots = [];
+        $aaSpots = SpotController::$aaSpotsByLatandLon;
+        foreach($aaSpots as $aSpot){
+            $aSimpleSpots[] = strtolower($aSpot['name']);
+        }
+
+        return $aSimpleSpots;
     }
 }
 
