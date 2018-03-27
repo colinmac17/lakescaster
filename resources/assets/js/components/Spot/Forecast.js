@@ -4,8 +4,14 @@ class Forecast extends Component{
     constructor(props){
         super(props)
         this.state = {
-
+            data: {}
         }
+    }
+
+    componentWillMount(){
+        this.setState({
+            data: this.props.state
+        })
     }
 
     render(){

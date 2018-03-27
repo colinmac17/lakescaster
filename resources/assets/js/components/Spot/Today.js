@@ -4,13 +4,13 @@ class Today extends Component{
     constructor(props) {
         super(props)
         this.state = {
-            data: []
+            data: {}
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillMount(){
         this.setState({
-            data: nextProps
+            data: this.props.state
         })
     }
 

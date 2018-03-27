@@ -21,7 +21,7 @@ export default class Spot extends Component{
                   {(context) => (
                     <div className="container">
                         <h2 className="text-left spot-heading"><span className="spot-name">{context.state.name}</span> Surf Report and Forecast</h2>
-                        <SpotTabs path={context.state.path} todayData={context.state} forecastData={context.state.data}/>
+                        <SpotTabs state={context.state} path={context.state.path} todayData={context.state} forecastData={context.state.data}/>
                     </div>
                   )}
               </MyContext.Consumer>

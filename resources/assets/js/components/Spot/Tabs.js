@@ -2,7 +2,6 @@ import React, {Fragment} from 'react';
 import { Link } from 'react-router-dom';
 
 const path = window.location.pathname;
-console.log(path);
 
 const Tabs = (props) => {
     return (

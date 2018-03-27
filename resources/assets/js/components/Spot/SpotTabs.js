@@ -6,6 +6,28 @@ import Forecast from './Forecast';
 import Media from './Media';
 import Reviews from './Reviews';
 
+/*
+    * Add ability to add props to Routes
+    * Resource: https://github.com/ReactTraining/react-router/issues/4105
+ */
+const renderMergedProps = (component, ...rest) => {
+    const finalProps = Object.assign({}, ...rest);
+    return (
+        React.createElement(component, finalProps)
+    );
+}
+
+const PropsRoute = ({ component, ...rest }) => {
+    return (
+        <Route {...rest} render={routeProps => {
+            return renderMergedProps(component, routeProps, rest);
+        }}/>
+    );
+}
+/*
+    * End source
+*/
+
 const SpotTabs = (props) => {
  return (
      <Fragment>
@@ -13,10 +35,10 @@ const SpotTabs = (props) => {
              <Fragment>
                  <Tabs path={props.path}/>
                  <Switch>
-                     <Route exact path={`/${props.path}`} component={Today} />
-                     <Route exact path={`/${props.path}/forecast`} component={Forecast} />
-                     <Route exact path={`/${props.path}/media`} component={Media} />
-                     <Route exact path={`/${props.path}/reviews`} component={Reviews} />
+                     <PropsRoute exact path={`/${props.path}`} component={Today} state={props.state} />
+                     <PropsRoute exact path={`/${props.path}/forecast`} component={Forecast} state={props.state} />
+                     <PropsRoute exact path={`/${props.path}/media`} component={Media} state={props.state} />
+                     <PropsRoute exact path={`/${props.path}/reviews`} component={Reviews} state={props.state} />
                  </Switch>
              </Fragment>
          </Router>
