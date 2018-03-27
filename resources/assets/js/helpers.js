@@ -8,6 +8,7 @@ $(document).ready(function(){
     helpers.handleAccountDeletion();
     helpers.toggleEmailRegistrationForm();
     helpers.searchSpot();
+    helpers.toggleActive();
 });
 
 //Create Helpers Object
@@ -74,5 +75,26 @@ helpers.searchSpot = () => {
                 console.log(result);
             }
         })
+    });
+}
+
+helpers.toggleActive = () => {
+    $('#spot-nav-links .nav-item .nav-link').click(e => {
+        const path = e.target.dataset.path;
+        $('a.nav-link.active').removeClass('active');
+        switch(path){
+            case 'today':
+                $("#spot-nav-links .nav-item [data-path='today']").addClass('active');
+                break;
+            case 'forecast':
+                $("#spot-nav-links .nav-item [data-path='forecast']").addClass('active');
+                break;
+            case 'media':
+                $("#spot-nav-links .nav-item [data-path='media']").addClass('active');
+                break;
+            case 'reviews':
+                $("#spot-nav-links .nav-item [data-path='reviews']").addClass('active');
+                break;
+        }
     });
 }

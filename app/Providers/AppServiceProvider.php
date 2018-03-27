@@ -15,8 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //Prepare for MySql in Production
         Schema::defaultStringLength(191);
+
         // Force SSL in production
         if (env('herokustate') == 'production') {
             URL::forceScheme('https');

@@ -7,7 +7,8 @@ export default class Spot extends Component{
     constructor(props){
         super(props)
         this.state = {
-            path: window.location.origin + '/api/' + this.props.path,
+            apiPath: window.location.origin + '/api/' + this.props.path,
+            path: this.props.path,
             date: this.props.date,
             name: this.props.name
         }
@@ -15,12 +16,12 @@ export default class Spot extends Component{
 
     render(){
       return (
-          <Provider path={this.state.path} date={this.state.date} name={this.state.name}>
+          <Provider path={this.state.path} apiPath={this.state.apiPath} date={this.state.date} name={this.state.name}>
               <MyContext.Consumer>
                   {(context) => (
                     <div className="container">
                         <h2 className="text-left spot-heading"><span className="spot-name">{context.state.name}</span> Surf Report and Forecast</h2>
-                        <SpotTabs todayData={context.state.data} forecastData={context.state.data}/>
+                        <SpotTabs path={context.state.path} todayData={context.state} forecastData={context.state.data}/>
                     </div>
                   )}
               </MyContext.Consumer>

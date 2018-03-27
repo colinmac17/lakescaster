@@ -13,10 +13,6 @@
 
 use App\Http\Controllers\SpotController;
 
-if (env('herokustate') == 'production') {
-    URL::forceScheme('https');
-}
-
 //Landing Page
 Route::get('/', function () {
     $aaSpots = SpotController::$aaSpotsByLatandLon;
@@ -43,8 +39,10 @@ Route::get('user/settings', 'AccountController@index');
 // App Routes
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('spots/{lake}/{spot}/{id}', 'SpotController@findByLatAndLongitude');
+Route::get('spots/{lake}/{spot}/{id}/forecast', 'SpotController@findByLatAndLongitude');
+Route::get('spots/{lake}/{spot}/{id}/media', 'SpotController@findByLatAndLongitude');
+Route::get('spots/{lake}/{spot}/{id}/reviews', 'SpotController@findByLatAndLongitude');
 Route::post('spot/search', 'SpotController@searchSpots');
-
 
 //API Routes
 Route::get('api/spots/{lake}/{spot}/{id}', 'APIController@getSpotById');
