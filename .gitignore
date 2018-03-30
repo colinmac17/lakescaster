@@ -14,6 +14,6 @@ yarn-error.log
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
-.ebextensions/init.config
+.ebextensions/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
