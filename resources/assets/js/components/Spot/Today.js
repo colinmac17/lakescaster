@@ -16,7 +16,7 @@ class Today extends Component{
 
     render(){
         return(
-            <h1>Today</h1>
+            <h2>Report for {this.state.data.date}</h2>
         )
     }
 }

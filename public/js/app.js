@@ -41888,9 +41888,10 @@ var Today = function (_Component) {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'h1',
+                'h2',
                 null,
-                'Today'
+                'Report for ',
+                this.state.data.date
             );
         }
     }]);
