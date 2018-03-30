@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
         // Force SSL in production
 //        if (env('herokustate') == 'production') {
         if(isset($_SERVER['RDS_HOSTNAME'])){
-            URL::forceScheme('https');
+            //URL::forceScheme('https');
         }
     }
 
