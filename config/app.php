@@ -1,5 +1,7 @@
 <?php
 
+if(isset($_SERVER['RDS_HOSTNAME'])) $bProd = true;
+
 return [
 
     /*
@@ -26,7 +28,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => $bProd ? 'production' : env('APP_ENV'),
 
     /*
     |--------------------------------------------------------------------------
@@ -38,8 +40,7 @@ return [
     | application. If disabled, a simple generic error page is shown.
     |
     */
-
-    'debug' => env('APP_DEBUG', false),
+    'debug' => $bProd ? false : env('APP_DEBUG'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +53,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://lakescaster.herokuapp.com/'),
+    'url' => $bProd ? 'https://lakescaster.com' : env('APP_URL'),
 
     /*
     |--------------------------------------------------------------------------
