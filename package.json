@@ -7,13 +7,17 @@
         "watch-poll": "npm run watch -- --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "test": "cross-env NODE_ENV=test jest",
+        "tdd": "npm run test -- --watch --notify"
     },
     "devDependencies": {
         "axios": "^0.18",
+        "babel-jest": "^22.4.3",
         "babel-preset-react": "^6.23.0",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
+        "jest": "^22.4.3",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
@@ -24,5 +28,8 @@
     "dependencies": {
         "react-router": "^4.3.0-rc.1",
         "react-router-dom": "^4.3.0-rc.1"
+    },
+    "jest": {
+        "roots": ["<rootDir>/resources/assets/js/tests"]
     }
 }
