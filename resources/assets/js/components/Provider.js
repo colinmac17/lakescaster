@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { contextMethods } from '../reactHelpers';
+import { toggleDescription } from '../reactHelpers';
 import axios from "axios";
 
 const MyContext = React.createContext();
@@ -12,7 +12,8 @@ export default class Provider extends Component{
             path: this.props.path,
             data: null,
             date: this.props.date,
-            name: this.props.name
+            name: this.props.name,
+            description: this.props.description
         }
     }
 

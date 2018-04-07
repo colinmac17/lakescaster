@@ -21,9 +21,9 @@ class SpotController extends Controller
 
     public static $aaSpotsByLatandLon = [
         //Montrose
-        ['id' => 1, 'name' => 'Montrose Beach', 'short' => 'montrose', 'lake' => 'michigan', 'city' => 'Chicago', 'lat' => 41.9674 , 'long' => -87.6341, 'tz' => 'America/Chicago', 'city' => 'Chicago', 'zip' => 60640, 'sPhoto' => '', 'sDescription' => ''],
+        ['id' => 1, 'name' => 'Montrose Beach', 'short' => 'montrose', 'lake' => 'michigan', 'city' => 'Chicago', 'lat' => 41.9674 , 'long' => -87.6341, 'tz' => 'America/Chicago', 'city' => 'Chicago', 'zip' => 60640, 'sPhoto' => '', 'sDescription' => 'Montrose Beach is located at 4400 N. Lake Shore Drive (Montrose Ave. at Lake Michigan) near the Uptown neighborhood.  This popular beach offers patrons amenities that include food concessions, kayak and volleyball rentals, showers and restrooms.  There is a non-motorized boat launch. An ADA accessible beach walk is available.  Patrons can park at pay and display lots or street parking.  Distance swimming is available from Tower 4 (north of boathouse) and parallel to shore. A dog friendly beach is located at north end of Montrose Beach.'],
         //57th Street
-        ['id' => 2, 'name' => '57th Street', 'short' => '57thstreet', 'lake' => 'michigan', 'city' => 'Chicago', 'lat' => 41.7930, 'long' => -87.5765, 'tz' => 'America/Chicago', 'city' => 'Chicago', 'zip' => 60637, 'sPhoto' => '', 'sDescription' => '']
+        ['id' => 2, 'name' => '57th Street', 'short' => '57thstreet', 'lake' => 'michigan', 'city' => 'Chicago', 'lat' => 41.7930, 'long' => -87.5765, 'tz' => 'America/Chicago', 'city' => 'Chicago', 'zip' => 60637, 'sPhoto' => '', 'sDescription' => '57th Street Beach is located at 5700 S. Lake Shore Drive (57th St. @ Lake Michigan) in Jackson Park.  This beach features an ADA accessible beach walk and restrooms.  Beach goers can stop by the Tasty Grill offering a Mexican menu along with hot dogs and refreshing beverages.  The distance swimming area is located parallel to shore from 55th Street south to pier.  Limited street parking is available nearby, west of Lake Shore Drive.']
     ];
 
     /*
@@ -35,8 +35,8 @@ class SpotController extends Controller
         $aSpot = $aaSpots[$iId -1];
         $sName = $aSpot['name'];
         $sPath = 'spots/' . $sLake . '/' . $sSpotName . '/' . $iId;
-        $sImg = $aSpot['sPhoto'];
-        return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sImg'));
+        $sDescription = $aSpot['sDescription'];
+        return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sDescription'));
     }
 
     public function getTimeZoneOffset($sTimeZone)
