@@ -62,22 +62,26 @@ class LoginController extends Controller
         if($authUser) {
             Auth::login($authUser, true);
         }
-        return redirect($this->redirectTo);
+        return redirect($this->redirectTo)->with('loginFail', 'Sorry That Email is already taken!');
     }
 
     public function findOrCreate($user, $provider)
     {
-        $authUser = User::where('provider_id', $user->id)->first();
-        if($authUser){
-            return $authUser;
+        $otherUser = User::where('email', '=', $user->email)->first();
+        if ($otherUser !== null && is_null($otherUser->provider_id) && is_null($otherUser->provider)) {
+            // user exists and signed up with normal email
+            return false;
+        } else {
+            $authUser = User::where('provider_id', $user->id)->first();
+            if ($authUser) {
+                return $authUser;
+            }
+            return User::create([
+                'name' => $user->name,
+                'email' => $user->email,
+                'provider' => strtoupper($provider),
+                'provider_id' => $user->id
+            ]);
         }
-        if(User::create([
-            'name' => $user->name,
-            'email' => $user->email,
-            'provider' => strtoupper($provider),
-            'provider_id' => $user->id
-        ])){
-            return true;
-        } else return false;
     }
 }

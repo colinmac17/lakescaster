@@ -20,6 +20,7 @@
 
                     </div>
                     <h3 class="text-center">OR</h3>
+
                     <hr/>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -53,7 +54,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
-                                <div class="checkbox">
+                                <div     class="checkbox">
                                     <label>
                                         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
                                     </label>

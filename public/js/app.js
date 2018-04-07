@@ -58594,6 +58594,7 @@ $(document).ready(function () {
     helpers.toggleEmailRegistrationForm();
     helpers.searchSpot();
     helpers.toggleActive();
+    helpers.fixHash();
 });
 
 //Create Helpers Object
@@ -58682,6 +58683,12 @@ helpers.toggleActive = function () {
                 break;
         }
     });
+};
+
+helpers.fixHash = function () {
+    if (window.location.hash && window.location.hash == '#_=_') {
+        window.location.hash = '';
+    }
 };
 
 /***/ }),
