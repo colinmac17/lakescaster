@@ -1,5 +1,6 @@
 <?php
 
+$bProd = isset($_SERVER['RDS_HOSTNAME']);
 return [
 
     /*
@@ -38,13 +39,13 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_CALLBACK_URL', 'http://localhost:3000/login/google/callback')
+        'redirect' => $bProd ? env('GOOGLE_CALLBACK_URL', 'http://localhost:3000/login/google/callback') : 'https://lakescaster.dev/login/google/callback'
     ],
 
     'facebook' => [
         'client_id' => env('FACEBOOK_APP_ID'),
         'client_secret' => env('FACEBOOK_APP_SECRET'),
-        'redirect' => env('FACEBOOK_CALLBACK_URL', 'http://localhost:3000/login/facebook/callback')
+        'redirect' => $bProd ? env('FACEBOOK_CALLBACK_URL', 'http://localhost:3000/login/facebook/callback') : 'https://lakescaster.dev/login/facebook/callback'
     ]
 
 ];
