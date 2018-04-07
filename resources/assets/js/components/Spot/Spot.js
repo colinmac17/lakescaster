@@ -3,7 +3,7 @@ import SpotTabs from './SpotTabs';
 import Provider, {MyContext} from '../Provider';
 import ReactDOM from 'react-dom';
 
-export default class Spot extends Component{
+class Spot extends Component{
     constructor(props){
         super(props)
         this.state = {
