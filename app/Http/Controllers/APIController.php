@@ -8,6 +8,8 @@ use \GuzzleHttp\Client;
 class APIController extends Controller
 {
 
+    public static $sWeatherIconUrl = 'http://openweathermap.org/img/w/';
+
     public function getSpotById($sLake, $sSpot, $iId)
     {
         $oSpotController = new SpotController();
@@ -22,11 +24,11 @@ class APIController extends Controller
 
         $sTZOffset = $oSpotController->getTimeZoneOffset($sTimeZone);
 
-       $aWaveData = $this->getWaveData($sLake, $iLat, $iLong, $sStart, $sEnd, $sTZOffset);
-       $aWeatherForecastData = $this->getWeatherForecast($iLat, $iLong);
-       $aWeatherNowData = $this->getCurrentWeather($iLat, $iLong);
+       $aaWaveData = $this->cleanWaveData($this->getWaveData($sLake, $iLat, $iLong, $sStart, $sEnd, $sTZOffset));
+       $aWeatherForecastData = $this->cleanWeatherForecastData($this->getWeatherForecast($iLat, $iLong), $sTimeZone);
+       $aWeatherNowData = $this->cleanWeatherData($this->getCurrentWeather($iLat, $iLong));
 
-       return ['surfData' => $aWaveData, 'weatherForecast' => $aWeatherForecastData, 'currentWeather' => $aWeatherNowData];
+       return ['surfData' => $aaWaveData, 'weatherForecast' => $aWeatherForecastData, 'currentWeather' => $aWeatherNowData];
     }
 
     /**
@@ -85,6 +87,72 @@ class APIController extends Controller
             $aWaveFormattedRows[] = $data;
         }
         return $aWaveFormattedRows;
+    }
+
+    public function cleanWaveData($aaWaveData)
+    {
+        $aaCleanWaveData = [];
+        foreach($aaWaveData as $key => $aWaveData) {
+            if ($key > 4 && !empty($aWaveData[0])) {
+                $aData = [
+                    'dTime' => $aWaveData[0],
+                    'sWaveHeight' => $aWaveData[1],
+                    'sWaveDirection' => $aWaveData[2],
+                    'sWavePeriod' => $aWaveData[3]
+                ];
+                $aaCleanWaveData[] = $aData;
+            }
+        }
+
+        return $aaCleanWaveData;
+    }
+
+    public function cleanWeatherData($oWeatherData)
+    {
+        $aWeather = $oWeatherData->weather;
+        $oMain = $oWeatherData->main;
+        $oWind = $oWeatherData->wind;
+        $aaCleanWeatherData = [
+            'sDescription' => $aWeather[0]->description,
+            'iTemp' => $oMain->temp,
+            'iTempMin' => $oMain->temp_min,
+            'iTempMax' => $oMain->temp_max,
+            'iPressure' => $oMain->pressure,
+            'iHumidity' => $oMain->humidity,
+            'iWindSpeed' => $oWind->speed,
+            'iWindDirection' => $oWind->deg,
+            'sIconUrl' => self::$sWeatherIconUrl . $aWeather[0]->icon . '.png'
+        ];
+
+        return $aaCleanWeatherData;
+    }
+
+    public function cleanWeatherForecastData($oWeatherForecastData, $sTimezone)
+    {
+        $aoAllData = $oWeatherForecastData->list;
+        $aaCleanWeatherForecastData = [];;
+        foreach($aoAllData as $oData){
+            $oMain = $oData->main;
+            $aWeather = $oData->weather;
+            $oWind = $oData->wind;
+            $oDT = new \DateTime($oData->dt_txt);
+            $oTZ = new \DateTimeZone($sTimezone);
+            $oDT->setTimezone($oTZ);
+            $aaCleanWeatherForecastData[] = [
+                'sDescription' => $aWeather[0]->description,
+                'iTemp' => $oMain->temp,
+                'iTempMin' => $oMain->temp_min,
+                'iTempMax' => $oMain->temp_max,
+                'iPressure' => $oMain->pressure,
+                'iHumidity' => $oMain->humidity,
+                'iWindSpeed' => $oWind->speed,
+                'iWindDirection' => $oWind->deg,
+                'sIconUrl' => self::$sWeatherIconUrl . $aWeather[0]->icon . '.png',
+                'sTime' => $oDT->format('Y-m-d H:i:s')
+            ];
+        }
+
+        return $aaCleanWeatherForecastData;
     }
 
     public function getSpotsByLake($lake)

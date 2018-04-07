@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import {MyContext} from '../Provider';
 
 class Media extends Component{
     constructor(props) {
@@ -8,15 +9,13 @@ class Media extends Component{
         }
     }
 
-    componentWillMount(){
-        this.setState({
-            data: this.props.state
-        })
-    }
-
     render(){
         return(
-            <h1>Media</h1>
+            <MyContext.Consumer>
+                {(context) => (
+                    <h1>Media for {context.state.name}</h1>
+                )}
+            </MyContext.Consumer>
         )
     }
 }

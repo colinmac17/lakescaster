@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import axios from "axios/index";
+import { contextMethods } from '../reactHelpers';
+import axios from "axios";
 
 const MyContext = React.createContext();
 
@@ -9,13 +10,13 @@ export default class Provider extends Component{
         this.state = {
             apiPath: this.props.apiPath,
             path: this.props.path,
-            data: [],
+            data: null,
             date: this.props.date,
             name: this.props.name
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         const path = this.state.apiPath
         axios.get(path)
             .then((res) => {

@@ -1,22 +1,25 @@
 import React, {Component, Fragment} from 'react';
+import {MyContext} from '../Provider';
 
 class Today extends Component{
-    constructor(props) {
+    constructor(props){
         super(props)
         this.state = {
             data: {}
         }
     }
 
-    componentWillMount(){
-        this.setState({
-            data: this.props.state
-        })
-    }
-
     render(){
         return(
-            <h2>Report for {this.state.data.date}</h2>
+            <MyContext.Consumer>
+                {(context) => (
+                    <Fragment>
+                        <h1>Today for {context.state.name}</h1>
+                        <p> Weather: {context.state.data !== null ? `${context.state.data.currentWeather.iTemp} degrees` : 'Loading'} <span>{context.state.data !== null ? <img src={context.state.data.currentWeather.sIconUrl} /> : 'loading'}</span></p>
+                        <p>Wave Height: {context.state.data !== null ? `${parseFloat(context.state.data.surfData[0].sWaveHeight).toFixed(2)} feet` : 'loading'}</p>
+                    </Fragment>
+                )}
+            </MyContext.Consumer>
         )
     }
 }

@@ -5,45 +5,50 @@ import Today from './Today';
 import Forecast from './Forecast';
 import Media from './Media';
 import Reviews from './Reviews';
+import {MyContext} from '../Provider';
 
-/*
-    * Add ability to add props to Routes
-    * Resource: https://github.com/ReactTraining/react-router/issues/4105
- */
-const renderMergedProps = (component, ...rest) => {
-    const finalProps = Object.assign({}, ...rest);
-    return (
-        React.createElement(component, finalProps)
-    );
-}
-
-const PropsRoute = ({ component, ...rest }) => {
-    return (
-        <Route {...rest} render={routeProps => {
-            return renderMergedProps(component, routeProps, rest);
-        }}/>
-    );
-}
-/*
-    * End source
-*/
-
-const SpotTabs = (props) => {
+const SpotTabs = () => {
  return (
-     <Fragment>
-         <Router>
+     <MyContext.Consumer>
+         {(context) => (
              <Fragment>
-                 <Tabs path={props.path}/>
-                 <Switch>
-                     <PropsRoute exact path={`/${props.path}`} component={Today} state={props.state} />
-                     <PropsRoute exact path={`/${props.path}/forecast`} component={Forecast} state={props.state} />
-                     <PropsRoute exact path={`/${props.path}/media`} component={Media} state={props.state} />
-                     <PropsRoute exact path={`/${props.path}/reviews`} component={Reviews} state={props.state} />
-                 </Switch>
+                 <Router>
+                     <Fragment>
+                         <Tabs path={context.state.path}/>
+                         <Switch>
+                             <Route exact path={`/${context.state.path}`} component={Today} />
+                             <Route exact path={`/${context.state.path}/forecast`} component={Forecast} />
+                             <Route exact path={`/${context.state.path}/media`} component={Media} />
+                             <Route exact path={`/${context.state.path}/reviews`} component={Reviews} />
+                         </Switch>
+                     </Fragment>
+                 </Router>
              </Fragment>
-         </Router>
-     </Fragment>
+         )}
+     </MyContext.Consumer>
  )
 }
 
 export default SpotTabs;
+
+/*
+//     * Add ability to add props to Routes
+//     * Resource: https://github.com/ReactTraining/react-router/issues/4105
+//  */
+// const renderMergedProps = (component, ...rest) => {
+//     const finalProps = Object.assign({}, ...rest);
+//     return (
+//         React.createElement(component, finalProps)
+//     );
+// }
+//
+// const PropsRoute = ({ component, ...rest }) => {
+//     return (
+//         <Route {...rest} render={routeProps => {
+//             return renderMergedProps(component, routeProps, rest);
+//         }}/>
+//     );
+// }
+// /*
+//     * End source
+// */

@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import {MyContext} from '../Provider';
 
 class Forecast extends Component{
     constructor(props){
@@ -8,15 +9,13 @@ class Forecast extends Component{
         }
     }
 
-    componentWillMount(){
-        this.setState({
-            data: this.props.state
-        })
-    }
-
     render(){
         return(
-            <h1>Forecast</h1>
+            <MyContext.Consumer>
+                {(context) => (
+                    <h1>Forecast for {context.state.name}</h1>
+                )}
+            </MyContext.Consumer>
         )
     }
 }
