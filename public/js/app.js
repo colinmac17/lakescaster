@@ -584,8 +584,17 @@ var Provider = function (_Component) {
             data: null,
             date: _this.props.date,
             name: _this.props.name,
-            description: _this.props.description
+            description: _this.props.description,
+            surfItems: [],
+            surfForecast: [],
+            weatherItems: [],
+            weatherForecast: [],
+            cardsHidden: false
         };
+
+        _this.getSurfItems = _this.getSurfItems.bind(_this);
+        _this.getWeatherItems = _this.getWeatherItems.bind(_this);
+        _this.updateCard = _this.updateCard.bind(_this);
         return _this;
     }
 
@@ -597,8 +606,59 @@ var Provider = function (_Component) {
             var path = this.state.apiPath;
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(path).then(function (res) {
                 _this2.setState({ data: res.data });
+                _this2.getSurfItems();
+                _this2.getWeatherItems();
             }).catch(function (err) {
                 return console.log(err);
+            });
+        }
+    }, {
+        key: 'updateCard',
+        value: function updateCard() {
+            var _this3 = this;
+
+            var path = this.state.apiPath;
+            this.setState({ cardsHidden: true });
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(path).then(function (res) {
+                _this3.setState({ data: res.data });
+                _this3.getSurfItems();
+                _this3.getWeatherItems();
+                _this3.setState({ cardsHidden: false });
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        }
+    }, {
+        key: 'getSurfItems',
+        value: function getSurfItems() {
+            this.setState({
+                surfItems: [{
+                    "title": "Surf Height",
+                    "desc": this.state.data !== null ? parseFloat(this.state.data.surfData[0].sWaveHeight).toFixed(2) + ' feet' : '...Loading'
+                }, {
+                    "title": "Surf Direction",
+                    "desc": this.state.data !== null ? parseFloat(this.state.data.surfData[0].sWaveDirection).toFixed(2) + ' degrees' : '...loading'
+                }, {
+                    "title": "Surf Period",
+                    "desc": this.state.data !== null ? parseFloat(this.state.data.surfData[0].sWavePeriod).toFixed(2) + ' seconds' : '...loading'
+                }],
+                surfForecast: []
+            });
+        }
+    }, {
+        key: 'getWeatherItems',
+        value: function getWeatherItems() {
+            this.setState({
+                weatherItems: [{
+                    "title": "Temperature",
+                    "desc": this.state.data !== null ? Math.round(this.state.data.currentWeather.iTemp) + ' \xB0F ' + Object(__WEBPACK_IMPORTED_MODULE_1__reactHelpers__["a" /* getWeatherDescription */])(this.state.data.currentWeather.sDescription.trim()) : '...Loading'
+                }, {
+                    "title": "Wind Speed",
+                    "desc": this.state.data !== null ? this.state.data.currentWeather.iWindSpeed.toFixed(2) + ' meters/second' : '...Loading'
+                }, {
+                    "title": "Wind Direction",
+                    "desc": this.state.data !== null ? Math.round(this.state.data.currentWeather.iWindDirection) + ' degrees' : '...Loading'
+                }]
             });
         }
     }, {
@@ -608,7 +668,16 @@ var Provider = function (_Component) {
                 MyContext.Provider,
                 {
                     value: {
-                        state: this.state
+                        state: this.state,
+                        surfItems: {
+                            today: this.state.surfItems,
+                            forecast: this.state.surfForecast
+                        },
+                        weatherItems: {
+                            today: this.state.weatherItems,
+                            forecast: this.state.weatherForecast
+                        },
+                        updateCard: this.updateCard
                     } },
                 this.props.children
             );
@@ -41883,7 +41952,8 @@ var withRouter = function withRouter(Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Provider__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Nuggets_Card__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Provider__ = __webpack_require__(5);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41891,6 +41961,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -41913,7 +41984,7 @@ var Today = function (_Component) {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_1__Provider__["MyContext"].Consumer,
+                __WEBPACK_IMPORTED_MODULE_2__Provider__["MyContext"].Consumer,
                 null,
                 function (context) {
                     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -41921,43 +41992,19 @@ var Today = function (_Component) {
                         null,
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'card text-white bg-primary mb-3' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'card-header' },
-                                'Header'
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'card-body' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'h5',
-                                    { className: 'card-title' },
-                                    'Primary card title'
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'p',
-                                    { className: 'card-text' },
-                                    'Some quick example text to build on the card title and make up the bulk of the card\'s content.'
-                                )
-                            )
+                            { className: 'card-deck' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Nuggets_Card__["a" /* Card */], { title: 'Surf', listItems: context.surfItems.today, background: 'bg-primary', hidden: context.state.cardsHidden }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Nuggets_Card__["a" /* Card */], { title: 'Weather', listItems: context.weatherItems.today, background: 'bg-warning', hidden: context.state.cardsHidden })
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'h1',
+                            'div',
                             null,
-                            'Today'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'p',
-                            { className: 'today-data' },
-                            ' Current Temp: ',
-                            context.state.data !== null ? Math.round(context.state.data.currentWeather.iTemp) + ' \xB0F' : '...Loading'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'p',
-                            { className: 'today-data' },
-                            'Wave Height: ',
-                            context.state.data !== null ? parseFloat(context.state.data.surfData[0].sWaveHeight).toFixed(2) + ' feet' : '...Loading'
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'p',
+                                { className: 'text-center' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { onClick: context.updateCard, className: 'fas fa-sync pointer' }),
+                                ' refresh'
+                            )
                         )
                     );
                 }
@@ -41975,18 +42022,40 @@ var Today = function (_Component) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export toggleDescription */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getWeatherDescription; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 
 
-var toggleDescription = function toggleDescription() {
-    console.log('clicked');
-};
-
 // Method to clean up numbers
 
 //Method to check for and store data in local storage
+
+var getWeatherDescription = function getWeatherDescription(sDesc) {
+    switch (sDesc) {
+        case 'few clouds':
+            return 'with a ' + sDesc;
+            break;
+        case 'clear sky':
+            return 'with a ' + sDesc;
+            break;
+        case 'scattered clouds':
+            return 'with ' + sDesc;
+            break;
+        case 'broken clouds':
+            return 'with ' + sDesc;
+            break;
+        case 'shower rain':
+            return 'with rain showers';
+            break;
+        case 'thunderstorm':
+            return 'with thunderstorms';
+            break;
+        default:
+            return 'and ' + sDesc + 'y';
+            break;
+    }
+};
 
 /***/ }),
 /* 93 */
@@ -58785,6 +58854,77 @@ helpers.toggleActive = function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Card; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+var Card = function Card(props) {
+    var className = 'card spot-card mb-3';
+    if (props.background) className += ' ' + props.background;
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
+        null,
+        !props.hidden ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: className },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'card-header text-white text-center' },
+                props.title ? props.title : 'Title'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'ul',
+                { className: 'list-group list-group-flush' },
+                props.listItems.length > 0 ? props.listItems.map(function (item, i) {
+                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        { key: i, className: 'list-group-item' },
+                        item.title,
+                        ': ',
+                        item.desc
+                    );
+                }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        { className: 'list-group-item' },
+                        '...loading'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        { className: 'list-group-item' },
+                        '...loading'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        { className: 'list-group-item' },
+                        '...loading'
+                    )
+                )
+            )
+        ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'card spot-card no-border mb-3' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'p',
+                { className: 'text-center' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-spinner fa-spin fa-7x' })
+            )
+        )
+    );
+};
 
 /***/ })
 /******/ ]);

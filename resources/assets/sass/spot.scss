@@ -30,3 +30,21 @@
   cursor:pointer;
   text-decoration: underline;
 }
+
+.spot-card {
+  width: 18rem;
+}
+
+.pointer{
+  cursor: pointer
+}
+
+.no-border {
+  border: none;
+}
+
+@media screen and (max-width: 575px){
+  .spot-card {
+    margin: auto;
+  }
+}
