@@ -553,7 +553,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MyContext", function() { return MyContext; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reactHelpers__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reactHelpers__ = __webpack_require__(93);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -589,12 +589,14 @@ var Provider = function (_Component) {
             surfForecast: [],
             weatherItems: [],
             weatherForecast: [],
-            cardsHidden: false
+            cardsHidden: false,
+            lastUpdated: null
         };
 
         _this.getSurfItems = _this.getSurfItems.bind(_this);
         _this.getWeatherItems = _this.getWeatherItems.bind(_this);
         _this.updateCard = _this.updateCard.bind(_this);
+        _this.getUpdateDate = _this.getUpdateDate.bind(_this);
         return _this;
     }
 
@@ -604,13 +606,33 @@ var Provider = function (_Component) {
             var _this2 = this;
 
             var path = this.state.apiPath;
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(path).then(function (res) {
-                _this2.setState({ data: res.data });
-                _this2.getSurfItems();
-                _this2.getWeatherItems();
-            }).catch(function (err) {
-                return console.log(err);
-            });
+            var now = Date.now();
+            var bHasUpdated = localStorage.getItem('dataUpdated') !== null ? true : false;
+            var then = null;
+            var bUpdate = false;
+            if (bHasUpdated) {
+                then = localStorage.getItem('dataUpdated');
+                if (now - then >= 3600000) bUpdate = true;
+            }
+
+            if (bUpdate) {
+                __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(path).then(function (res) {
+                    _this2.setState({ data: res.data, lastUpdated: now });
+                    _this2.getSurfItems();
+                    _this2.getWeatherItems();
+                    localStorage.setItem('dataUpdated', Date.now());
+                    localStorage.setItem('data', JSON.stringify(res.data));
+                    localStorage.setItem('surfingData', JSON.stringify(res.data.surfData));
+                    localStorage.setItem('currentWeatherData', JSON.stringify(res.data.currentWeather));
+                    localStorage.setItem('weatherForecastData', JSON.stringify(res.data.weatherForecast));
+                }).catch(function (err) {
+                    return console.log(err);
+                });
+            } else {
+                this.setState({ data: JSON.parse(localStorage.getItem('data')), lastUpdated: then });
+                this.getSurfItems();
+                this.getWeatherItems();
+            }
         }
     }, {
         key: 'updateCard',
@@ -662,6 +684,12 @@ var Provider = function (_Component) {
             });
         }
     }, {
+        key: 'getUpdateDate',
+        value: function getUpdateDate(timestamp) {
+            var d = new Date(timestamp);
+            console.log(d);
+        }
+    }, {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -669,6 +697,7 @@ var Provider = function (_Component) {
                 {
                     value: {
                         state: this.state,
+                        lastUpdated: this.getUpdateDate(this.state.lastUpdated),
                         surfItems: {
                             today: this.state.surfItems,
                             forecast: this.state.surfForecast
@@ -15649,7 +15678,7 @@ var generatePath = function generatePath() {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(38);
-module.exports = __webpack_require__(109);
+module.exports = __webpack_require__(110);
 
 
 /***/ }),
@@ -15676,7 +15705,7 @@ __webpack_require__(5);
  * Require other JS
  */
 
-__webpack_require__(108);
+__webpack_require__(109);
 
 /***/ }),
 /* 39 */
@@ -37854,7 +37883,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SpotTabs__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Provider__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_dom__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -39368,9 +39397,9 @@ module.exports = react;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Tabs__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Today__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Forecast__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Media__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Reviews__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Forecast__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Media__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Reviews__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Provider__ = __webpack_require__(5);
 
 
@@ -41952,7 +41981,7 @@ var withRouter = function withRouter(Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Nuggets_Card__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Nuggets_Card__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Provider__ = __webpack_require__(5);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -41998,10 +42027,16 @@ var Today = function (_Component) {
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            null,
+                            { className: 'text-center' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'p',
-                                { className: 'text-center' },
+                                { className: 'text-muted' },
+                                'Last Updated: ',
+                                context.lastUpdated
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'p',
+                                { className: '' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { onClick: context.updateCard, className: 'fas fa-sync pointer' }),
                                 ' refresh'
                             )
@@ -42019,6 +42054,73 @@ var Today = function (_Component) {
 
 /***/ }),
 /* 92 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Card; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+var Card = function Card(props) {
+    var className = 'card spot-card mb-3';
+    if (props.background) className += ' ' + props.background;
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
+        null,
+        !props.hidden ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: className },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'card-header text-white text-center' },
+                props.title ? props.title : 'Title'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'ul',
+                { className: 'list-group list-group-flush' },
+                props.listItems.length > 0 ? props.listItems.map(function (item, i) {
+                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        { key: i, className: 'list-group-item' },
+                        item.title,
+                        ': ',
+                        item.desc
+                    );
+                }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        { className: 'list-group-item' },
+                        '...loading'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        { className: 'list-group-item' },
+                        '...loading'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        { className: 'list-group-item' },
+                        '...loading'
+                    )
+                )
+            )
+        ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'card spot-card no-border mb-3' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'p',
+                { className: 'text-center' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-spinner fa-spin fa-7x' })
+            )
+        )
+    );
+};
+
+/***/ }),
+/* 93 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42058,7 +42160,7 @@ var getWeatherDescription = function getWeatherDescription(sDesc) {
 };
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42114,7 +42216,7 @@ var Forecast = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (Forecast);
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42170,7 +42272,7 @@ var Media = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (Media);
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42226,7 +42328,7 @@ var Reviews = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (Reviews);
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42266,12 +42368,12 @@ if (false) {
   checkDCE();
   module.exports = require('./cjs/react-dom.production.min.js');
 } else {
-  module.exports = __webpack_require__(97);
+  module.exports = __webpack_require__(98);
 }
 
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42295,16 +42397,16 @@ if (true) {
 var React = __webpack_require__(0);
 var invariant = __webpack_require__(8);
 var warning = __webpack_require__(9);
-var ExecutionEnvironment = __webpack_require__(98);
+var ExecutionEnvironment = __webpack_require__(99);
 var _assign = __webpack_require__(13);
 var emptyFunction = __webpack_require__(10);
 var checkPropTypes = __webpack_require__(14);
-var getActiveElement = __webpack_require__(99);
-var shallowEqual = __webpack_require__(100);
-var containsNode = __webpack_require__(101);
+var getActiveElement = __webpack_require__(100);
+var shallowEqual = __webpack_require__(101);
+var containsNode = __webpack_require__(102);
 var emptyObject = __webpack_require__(28);
-var hyphenateStyleName = __webpack_require__(104);
-var camelizeStyleName = __webpack_require__(106);
+var hyphenateStyleName = __webpack_require__(105);
+var camelizeStyleName = __webpack_require__(107);
 
 /**
  * WARNING: DO NOT manually require this module.
@@ -58338,7 +58440,7 @@ module.exports = reactDom;
 
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58377,7 +58479,7 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58419,7 +58521,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58490,7 +58592,7 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58505,7 +58607,7 @@ module.exports = shallowEqual;
  * 
  */
 
-var isTextNode = __webpack_require__(102);
+var isTextNode = __webpack_require__(103);
 
 /*eslint-disable no-bitwise */
 
@@ -58533,7 +58635,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58548,7 +58650,7 @@ module.exports = containsNode;
  * @typechecks
  */
 
-var isNode = __webpack_require__(103);
+var isNode = __webpack_require__(104);
 
 /**
  * @param {*} object The object to check.
@@ -58561,7 +58663,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58589,7 +58691,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58604,7 +58706,7 @@ module.exports = isNode;
 
 
 
-var hyphenate = __webpack_require__(105);
+var hyphenate = __webpack_require__(106);
 
 var msPattern = /^ms-/;
 
@@ -58631,7 +58733,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58667,7 +58769,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58682,7 +58784,7 @@ module.exports = hyphenate;
 
 
 
-var camelize = __webpack_require__(107);
+var camelize = __webpack_require__(108);
 
 var msPattern = /^-ms-/;
 
@@ -58710,7 +58812,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58745,7 +58847,7 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
@@ -58850,81 +58952,10 @@ helpers.toggleActive = function () {
 };
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Card; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-
-
-var Card = function Card(props) {
-    var className = 'card spot-card mb-3';
-    if (props.background) className += ' ' + props.background;
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
-        null,
-        !props.hidden ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: className },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'card-header text-white text-center' },
-                props.title ? props.title : 'Title'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'ul',
-                { className: 'list-group list-group-flush' },
-                props.listItems.length > 0 ? props.listItems.map(function (item, i) {
-                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'li',
-                        { key: i, className: 'list-group-item' },
-                        item.title,
-                        ': ',
-                        item.desc
-                    );
-                }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
-                    null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'li',
-                        { className: 'list-group-item' },
-                        '...loading'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'li',
-                        { className: 'list-group-item' },
-                        '...loading'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'li',
-                        { className: 'list-group-item' },
-                        '...loading'
-                    )
-                )
-            )
-        ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'card spot-card no-border mb-3' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'p',
-                { className: 'text-center' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-spinner fa-spin fa-7x' })
-            )
-        )
-    );
-};
 
 /***/ })
 /******/ ]);

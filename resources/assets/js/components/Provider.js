@@ -18,22 +18,44 @@ export default class Provider extends Component{
             surfForecast: [],
             weatherItems: [],
             weatherForecast: [],
-            cardsHidden: false
+            cardsHidden: false,
+            lastUpdated: null
         }
 
         this.getSurfItems = this.getSurfItems.bind(this);
         this.getWeatherItems = this.getWeatherItems.bind(this);
         this.updateCard = this.updateCard.bind(this);
+        this.getUpdateDate = this .getUpdateDate.bind(this);
     }
 
     componentDidMount(){
         const path = this.state.apiPath
-        axios.get(path)
-            .then((res) => {
-                this.setState({data: res.data})
-                this.getSurfItems()
-                this.getWeatherItems()
-            }).catch(err => console.log(err))
+        const now = Date.now()
+        const bHasUpdated = localStorage.getItem('dataUpdated') !== null ? true : false
+        let then = null;
+        let bUpdate = false;
+        if(bHasUpdated){
+            then = localStorage.getItem('dataUpdated');
+            if((now - then) >= 3600000) bUpdate = true;
+        }
+
+        if(bUpdate) {
+            axios.get(path)
+                .then((res) => {
+                    this.setState({data: res.data, lastUpdated: now})
+                    this.getSurfItems()
+                    this.getWeatherItems()
+                    localStorage.setItem('dataUpdated', Date.now())
+                    localStorage.setItem('data', JSON.stringify(res.data))
+                    localStorage.setItem('surfingData', JSON.stringify(res.data.surfData));
+                    localStorage.setItem('currentWeatherData', JSON.stringify(res.data.currentWeather));
+                    localStorage.setItem('weatherForecastData', JSON.stringify(res.data.weatherForecast));
+                }).catch(err => console.log(err))
+        } else {
+            this.setState({data: JSON.parse(localStorage.getItem('data')), lastUpdated: then})
+            this.getSurfItems()
+            this.getWeatherItems()
+        }
     }
 
     updateCard(){
@@ -89,11 +111,17 @@ export default class Provider extends Component{
         })
     }
 
+    getUpdateDate(timestamp){
+        let d = new Date(timestamp)
+        console.log(d)
+    }
+
     render(){
         return(
             <MyContext.Provider
                 value={{
                 state: this.state,
+                lastUpdated: this.getUpdateDate(this.state.lastUpdated),
                 surfItems: {
                  today: this.state.surfItems,
                  forecast: this.state.surfForecast
