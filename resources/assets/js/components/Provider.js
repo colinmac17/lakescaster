@@ -111,9 +111,11 @@ export default class Provider extends Component{
         })
     }
 
-    getUpdateDate(timestamp){
-        let d = new Date(timestamp)
-        console.log(d)
+    getUpdateDate(){
+        let updated = localStorage.getItem('dataUpdated')
+        let d = new Date(updated)
+        let month = d.getMonth()
+        console.log(month)
     }
 
     render(){
@@ -121,7 +123,7 @@ export default class Provider extends Component{
             <MyContext.Provider
                 value={{
                 state: this.state,
-                lastUpdated: this.getUpdateDate(this.state.lastUpdated),
+                lastUpdated: this.getUpdateDate,
                 surfItems: {
                  today: this.state.surfItems,
                  forecast: this.state.surfForecast

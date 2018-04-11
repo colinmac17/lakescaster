@@ -685,9 +685,11 @@ var Provider = function (_Component) {
         }
     }, {
         key: 'getUpdateDate',
-        value: function getUpdateDate(timestamp) {
-            var d = new Date(timestamp);
-            console.log(d);
+        value: function getUpdateDate() {
+            var updated = localStorage.getItem('dataUpdated');
+            var d = new Date(updated);
+            var month = d.getMonth();
+            console.log(month);
         }
     }, {
         key: 'render',
@@ -697,7 +699,7 @@ var Provider = function (_Component) {
                 {
                     value: {
                         state: this.state,
-                        lastUpdated: this.getUpdateDate(this.state.lastUpdated),
+                        lastUpdated: this.getUpdateDate,
                         surfItems: {
                             today: this.state.surfItems,
                             forecast: this.state.surfForecast
@@ -42032,7 +42034,7 @@ var Today = function (_Component) {
                                 'p',
                                 { className: 'text-muted' },
                                 'Last Updated: ',
-                                context.lastUpdated
+                                context.lastUpdated()
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'p',

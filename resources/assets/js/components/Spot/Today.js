@@ -21,7 +21,7 @@ class Today extends Component{
                             <Card title="Weather" listItems={context.weatherItems.today} background="bg-warning" hidden={context.state.cardsHidden} />
                         </div>
                         <div className="text-center">
-                            <p className="text-muted">Last Updated: {context.lastUpdated}</p>
+                            <p className="text-muted">Last Updated: {context.lastUpdated()}</p>
                             <p className=""><i onClick={context.updateCard} className="fas fa-sync pointer"></i> refresh</p>
                         </div>
                     </Fragment>
