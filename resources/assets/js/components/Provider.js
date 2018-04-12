@@ -10,7 +10,7 @@ export default class Provider extends Component{
         this.state = {
             apiPath: this.props.apiPath,
             path: this.props.path,
-            data: null,
+            data: (localStorage.getItem(`${this.props.name}-data`) !== null) ? JSON.parse(localStorage.getItem(`${this.props.name}-data`)) : null,
             date: this.props.date,
             name: this.props.name,
             description: this.props.description,
@@ -25,18 +25,20 @@ export default class Provider extends Component{
         this.getSurfItems = this.getSurfItems.bind(this);
         this.getWeatherItems = this.getWeatherItems.bind(this);
         this.updateCard = this.updateCard.bind(this);
-        this.getUpdateDate = this .getUpdateDate.bind(this);
+        this.getUpdateDate = this.getUpdateDate.bind(this);
+        this.updateLocalStorage = this.updateLocalStorage.bind(this)
     }
 
     componentDidMount(){
         const path = this.state.apiPath
         const now = Date.now()
-        const bHasUpdated = localStorage.getItem('dataUpdated') !== null ? true : false
+        const bHasUpdated = localStorage.getItem(`${this.props.name}-dataUpdated`) !== null ? true : false
         let then = null;
-        let bUpdate = false;
+        let bUpdate = true;
         if(bHasUpdated){
-            then = localStorage.getItem('dataUpdated');
+            then = localStorage.getItem(`${this.props.name}-dataUpdated`);
             if((now - then) >= 3600000) bUpdate = true;
+            else bUpdate = false;
         }
 
         if(bUpdate) {
@@ -45,17 +47,20 @@ export default class Provider extends Component{
                     this.setState({data: res.data, lastUpdated: now})
                     this.getSurfItems()
                     this.getWeatherItems()
-                    localStorage.setItem('dataUpdated', Date.now())
-                    localStorage.setItem('data', JSON.stringify(res.data))
-                    localStorage.setItem('surfingData', JSON.stringify(res.data.surfData));
-                    localStorage.setItem('currentWeatherData', JSON.stringify(res.data.currentWeather));
-                    localStorage.setItem('weatherForecastData', JSON.stringify(res.data.weatherForecast));
+                    this.updateLocalStorage()
                 }).catch(err => console.log(err))
         } else {
-            this.setState({data: JSON.parse(localStorage.getItem('data')), lastUpdated: then})
             this.getSurfItems()
             this.getWeatherItems()
         }
+    }
+
+    updateLocalStorage(){
+        localStorage.setItem(`${this.props.name}-dataUpdated`, Date.now())
+        localStorage.setItem(`${this.props.name}-data`, JSON.stringify(res.data))
+        localStorage.setItem(`${this.props.name}-surfingData`, JSON.stringify(res.data.surfData))
+        localStorage.setItem(`${this.props.name}-currentWeatherData`, JSON.stringify(res.data.currentWeather))
+        localStorage.setItem(`${this.props.name}-weatherForecastData`, JSON.stringify(res.data.weatherForecast))
     }
 
     updateCard(){
@@ -63,10 +68,10 @@ export default class Provider extends Component{
         this.setState({cardsHidden: true})
         axios.get(path)
             .then((res) => {
-                this.setState({data: res.data})
+                this.setState({data: res.data, lastUpdated: Date.now(), cardsHidden: false})
                 this.getSurfItems()
                 this.getWeatherItems()
-                this.setState({cardsHidden: false})
+                this.updateLocalStorage()
             }).catch(err => console.log(err))
     }
 
@@ -112,7 +117,7 @@ export default class Provider extends Component{
     }
 
     getUpdateDate(){
-        let updated = localStorage.getItem('dataUpdated')
+        let updated = localStorage.getItem(`${this.props.name}-dataUpdated`)
         let d = new Date(updated)
         let month = d.getMonth()
         console.log(month)

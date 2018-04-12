@@ -581,7 +581,7 @@ var Provider = function (_Component) {
         _this.state = {
             apiPath: _this.props.apiPath,
             path: _this.props.path,
-            data: null,
+            data: localStorage.getItem(_this.props.name + '-data') !== null ? JSON.parse(localStorage.getItem(_this.props.name + '-data')) : null,
             date: _this.props.date,
             name: _this.props.name,
             description: _this.props.description,
@@ -597,6 +597,7 @@ var Provider = function (_Component) {
         _this.getWeatherItems = _this.getWeatherItems.bind(_this);
         _this.updateCard = _this.updateCard.bind(_this);
         _this.getUpdateDate = _this.getUpdateDate.bind(_this);
+        _this.updateLocalStorage = _this.updateLocalStorage.bind(_this);
         return _this;
     }
 
@@ -607,12 +608,12 @@ var Provider = function (_Component) {
 
             var path = this.state.apiPath;
             var now = Date.now();
-            var bHasUpdated = localStorage.getItem('dataUpdated') !== null ? true : false;
+            var bHasUpdated = localStorage.getItem(this.props.name + '-dataUpdated') !== null ? true : false;
             var then = null;
-            var bUpdate = false;
+            var bUpdate = true;
             if (bHasUpdated) {
-                then = localStorage.getItem('dataUpdated');
-                if (now - then >= 3600000) bUpdate = true;
+                then = localStorage.getItem(this.props.name + '-dataUpdated');
+                if (now - then >= 3600000) bUpdate = true;else bUpdate = false;
             }
 
             if (bUpdate) {
@@ -620,19 +621,23 @@ var Provider = function (_Component) {
                     _this2.setState({ data: res.data, lastUpdated: now });
                     _this2.getSurfItems();
                     _this2.getWeatherItems();
-                    localStorage.setItem('dataUpdated', Date.now());
-                    localStorage.setItem('data', JSON.stringify(res.data));
-                    localStorage.setItem('surfingData', JSON.stringify(res.data.surfData));
-                    localStorage.setItem('currentWeatherData', JSON.stringify(res.data.currentWeather));
-                    localStorage.setItem('weatherForecastData', JSON.stringify(res.data.weatherForecast));
+                    _this2.updateLocalStorage();
                 }).catch(function (err) {
                     return console.log(err);
                 });
             } else {
-                this.setState({ data: JSON.parse(localStorage.getItem('data')), lastUpdated: then });
                 this.getSurfItems();
                 this.getWeatherItems();
             }
+        }
+    }, {
+        key: 'updateLocalStorage',
+        value: function updateLocalStorage() {
+            localStorage.setItem(this.props.name + '-dataUpdated', Date.now());
+            localStorage.setItem(this.props.name + '-data', JSON.stringify(res.data));
+            localStorage.setItem(this.props.name + '-surfingData', JSON.stringify(res.data.surfData));
+            localStorage.setItem(this.props.name + '-currentWeatherData', JSON.stringify(res.data.currentWeather));
+            localStorage.setItem(this.props.name + '-weatherForecastData', JSON.stringify(res.data.weatherForecast));
         }
     }, {
         key: 'updateCard',
@@ -642,10 +647,10 @@ var Provider = function (_Component) {
             var path = this.state.apiPath;
             this.setState({ cardsHidden: true });
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(path).then(function (res) {
-                _this3.setState({ data: res.data });
+                _this3.setState({ data: res.data, lastUpdated: Date.now(), cardsHidden: false });
                 _this3.getSurfItems();
                 _this3.getWeatherItems();
-                _this3.setState({ cardsHidden: false });
+                _this3.updateLocalStorage();
             }).catch(function (err) {
                 return console.log(err);
             });
@@ -686,7 +691,7 @@ var Provider = function (_Component) {
     }, {
         key: 'getUpdateDate',
         value: function getUpdateDate() {
-            var updated = localStorage.getItem('dataUpdated');
+            var updated = localStorage.getItem(this.props.name + '-dataUpdated');
             var d = new Date(updated);
             var month = d.getMonth();
             console.log(month);
