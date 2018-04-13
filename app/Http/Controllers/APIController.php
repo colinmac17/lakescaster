@@ -78,7 +78,6 @@ class APIController extends Controller
     {
         $oSpotController = new SpotController();
         $sWaveEndpoint = $oSpotController->GLERL_ENDPOINT . 'lake=' . $sLake . '&i=' . $iLong . '&j=' . $iLat . '&v=wvh,wvd,wvp&t=forecast&st=' . $sStart . '&et=' . $sEnd . '&u=e' . '&order=asc&pv=1&tzf=' . $sTZOffset .'&f=csv';
-
         $wave_txt_file = file_get_contents($sWaveEndpoint);
         $waveRows = explode("\n", $wave_txt_file);
         $aWaveFormattedRows = [];

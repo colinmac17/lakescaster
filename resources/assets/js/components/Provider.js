@@ -19,14 +19,15 @@ export default class Provider extends Component{
             weatherItems: [],
             weatherForecast: [],
             cardsHidden: false,
-            lastUpdated: null
+            lastUpdated: null,
+            bShowRefresh: false
         }
 
         this.getSurfItems = this.getSurfItems.bind(this);
         this.getWeatherItems = this.getWeatherItems.bind(this);
         this.updateCard = this.updateCard.bind(this);
-        this.getUpdateDate = this.getUpdateDate.bind(this);
         this.updateLocalStorage = this.updateLocalStorage.bind(this)
+        this.formatDirection = this.formatDirection.bind(this)
     }
 
     componentDidMount(){
@@ -37,8 +38,14 @@ export default class Provider extends Component{
         let bUpdate = true;
         if(bHasUpdated){
             then = localStorage.getItem(`${this.props.name}-dataUpdated`);
-            if((now - then) >= 3600000) bUpdate = true;
-            else bUpdate = false;
+            if((now - then) >= 3600000) {
+                bUpdate = true;
+                this.setState({bShowRefresh: true})
+            }
+            else {
+                this.setState({bShowRefresh: false})
+                bUpdate = false;
+            }
         }
 
         if(bUpdate) {
@@ -47,16 +54,17 @@ export default class Provider extends Component{
                     this.setState({data: res.data, lastUpdated: now})
                     this.getSurfItems()
                     this.getWeatherItems()
-                    this.updateLocalStorage()
+                    this.updateLocalStorage(res)
                 }).catch(err => console.log(err))
         } else {
             this.getSurfItems()
             this.getWeatherItems()
+            this.setState({lastUpdated: JSON.parse(localStorage.getItem(`${this.props.name}-dataUpdated`))})
         }
     }
 
-    updateLocalStorage(){
-        localStorage.setItem(`${this.props.name}-dataUpdated`, Date.now())
+    updateLocalStorage(res){
+        localStorage.setItem(`${this.props.name}-dataUpdated`, JSON.stringify(Date.now()))
         localStorage.setItem(`${this.props.name}-data`, JSON.stringify(res.data))
         localStorage.setItem(`${this.props.name}-surfingData`, JSON.stringify(res.data.surfData))
         localStorage.setItem(`${this.props.name}-currentWeatherData`, JSON.stringify(res.data.currentWeather))
@@ -71,7 +79,7 @@ export default class Provider extends Component{
                 this.setState({data: res.data, lastUpdated: Date.now(), cardsHidden: false})
                 this.getSurfItems()
                 this.getWeatherItems()
-                this.updateLocalStorage()
+                this.updateLocalStorage(res)
             }).catch(err => console.log(err))
     }
 
@@ -79,15 +87,15 @@ export default class Provider extends Component{
         this.setState({
           surfItems: [
                   {
-                      "title": "Surf Height",
+                      "title": "Wave Height",
                       "desc": this.state.data !== null ? `${parseFloat(this.state.data.surfData[0].sWaveHeight).toFixed(2)} feet` : '...Loading'
                   },
                   {
-                      "title": "Surf Direction",
-                      "desc": this.state.data !== null ? `${parseFloat(this.state.data.surfData[0].sWaveDirection).toFixed(2)} degrees` : '...loading'
+                      "title": "Wave Direction",
+                      "desc": this.state.data !== null ? `${this.formatDirection(this.state.data.surfData[0].sWaveDirection)}` : '...loading'
                   },
                   {
-                      "title": "Surf Period",
+                      "title": "Wave Period",
                       "desc": this.state.data !== null ? `${parseFloat(this.state.data.surfData[0].sWavePeriod).toFixed(2)} seconds` : '...loading'
                   }
               ],
@@ -110,17 +118,28 @@ export default class Provider extends Component{
                 },
                 {
                     "title": "Wind Direction",
-                    "desc": this.state.data !== null ? `${Math.round(this.state.data.currentWeather.iWindDirection)} degrees` : '...Loading'
+                    "desc": this.state.data !== null ? `${this.formatDirection(this.state.data.currentWeather.iWindDirection)}` : '...Loading'
                 }
             ]
         })
     }
 
-    getUpdateDate(){
-        let updated = localStorage.getItem(`${this.props.name}-dataUpdated`)
-        let d = new Date(updated)
-        let month = d.getMonth()
-        console.log(month)
+    formatDirection(iDirection){
+        if(iDirection >= 10 && iDirection < 80){
+            return 'NE'
+        } else if (iDirection >=80 && iDirection <100){
+            return 'E'
+        } else if (iDirection >= 100 && iDirection < 170){
+            return 'SE'
+        } else if (iDirection >=170 && iDirection < 190){
+            return 'S'
+        } else if (iDirection >=190 && iDirection < 260){
+            return 'SW'
+        } else if (iDirection >= 260 && iDirection < 280){
+            return 'W'
+        } else if (iDirection >= 280 && iDirection < 350){
+            return 'NW'
+        } else return 'N'
     }
 
     render(){
@@ -128,7 +147,7 @@ export default class Provider extends Component{
             <MyContext.Provider
                 value={{
                 state: this.state,
-                lastUpdated: this.getUpdateDate,
+                lastUpdated: this.state.lastUpdated,
                 surfItems: {
                  today: this.state.surfItems,
                  forecast: this.state.surfForecast
@@ -137,7 +156,8 @@ export default class Provider extends Component{
                  today: this.state.weatherItems,
                  forecast: this.state.weatherForecast
                 },
-                updateCard: this.updateCard
+                updateCard: this.updateCard,
+                bShowRefresh: this.state.bShowRefresh
             }}>
                 {this.props.children}
             </MyContext.Provider>
