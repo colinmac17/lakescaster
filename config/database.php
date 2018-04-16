@@ -19,6 +19,10 @@ if(isset($_SERVER['RDS_HOSTNAME'])) {
     define('RDS_DB_NAME', $_SERVER['RDS_DB_NAME']);
 }
 
+print_r('<pre>');
+print_r($_SERVER);
+die();
+
 return [
 
     /*
