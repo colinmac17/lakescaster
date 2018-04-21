@@ -66,9 +66,6 @@ export default class Provider extends Component{
     updateLocalStorage(res){
         localStorage.setItem(`${this.props.name}-dataUpdated`, JSON.stringify(Date.now()))
         localStorage.setItem(`${this.props.name}-data`, JSON.stringify(res.data))
-        localStorage.setItem(`${this.props.name}-surfingData`, JSON.stringify(res.data.surfData))
-        localStorage.setItem(`${this.props.name}-currentWeatherData`, JSON.stringify(res.data.currentWeather))
-        localStorage.setItem(`${this.props.name}-weatherForecastData`, JSON.stringify(res.data.weatherForecast))
     }
 
     updateCard(){

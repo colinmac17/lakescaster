@@ -25,7 +25,8 @@ class DashboardController extends Controller
     public function index()
     {
         $aaSpots = SpotController::$aaSpotsByLatandLon;
+        $aLakes = SpotController::$aLakes;
         $name = Auth::user()->name;
-        return view('dashboard', compact('aaSpots', 'name'));
+        return view('dashboard', compact('aaSpots', 'name', 'aLakes'));
     }
 }
