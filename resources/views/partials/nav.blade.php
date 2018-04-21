@@ -4,6 +4,11 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 <i class="ion-icon ion-radio-waves" style="font-size: 20px; margin-right:5px;"></i>{{ config('app.name', 'Lakescaster') }}
             </a>
+            <ul class="navbar-nav ml-auto mr-3" id="allSpotsLink">
+                <li class="nav-item">
+                    <a class="nav-link" href="/spots">Reports</a>
+                </li>
+            </ul>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

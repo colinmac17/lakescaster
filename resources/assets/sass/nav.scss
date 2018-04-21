@@ -49,3 +49,17 @@
   margin-left: .1rem;
   margin-right: .1rem;
 }
+
+#allSpotsLink {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  #allSpotsLink {
+    display: block;
+  }
+
+  #toggleSpotDropdown{
+    display: none;
+  }
+}

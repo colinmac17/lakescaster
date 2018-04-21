@@ -40,6 +40,7 @@ Route::get('user/settings', 'AccountController@index');
 
 // App Routes
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('spots', 'SpotController@getAllSpots');
 Route::get('spots/{lake}/{spot}/{id}', 'SpotController@findByLatAndLongitude');
 Route::get('spots/{lake}/{spot}/{id}/forecast', 'SpotController@findByLatAndLongitude');
 Route::get('spots/{lake}/{spot}/{id}/media', 'SpotController@findByLatAndLongitude');

@@ -14,6 +14,7 @@ $(document).ready(function(){
     helpers.showUser();
     helpers.hideUser();
     helpers.multiLevelDropdown();
+    // helpers.handleSpotDropDownClick();
 });
 
 //Create Helpers Object
@@ -158,5 +159,12 @@ helpers.multiLevelDropdown = () => {
         });
 
         return false;
+    });
+}
+
+helpers.handleSpotDropDownClick = () => {
+    $('#toggleSpotDropdown').on('click', (e) => {
+       e.preventDefault();
+       console.log('hey');
     });
 }

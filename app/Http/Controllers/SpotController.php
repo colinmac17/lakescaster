@@ -45,6 +45,13 @@ class SpotController extends Controller
         return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sDescription', 'aLakes'));
     }
 
+    public function getAllSpots()
+    {
+        $aaSpots = self::$aaSpotsByLatandLon;
+        $aLakes = self::$aLakes;
+        return view('allspots', compact('aaSpots', 'aLakes'));
+    }
+
     public function getTimeZoneOffset($sTimeZone)
     {
         $bIsDaylightSavingsTime = (date('I') === 1) ? true : false;

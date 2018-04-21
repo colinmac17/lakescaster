@@ -58946,6 +58946,7 @@ $(document).ready(function () {
     helpers.showUser();
     helpers.hideUser();
     helpers.multiLevelDropdown();
+    // helpers.handleSpotDropDownClick();
 });
 
 //Create Helpers Object
@@ -59090,6 +59091,13 @@ helpers.multiLevelDropdown = function () {
         });
 
         return false;
+    });
+};
+
+helpers.handleSpotDropDownClick = function () {
+    $('#toggleSpotDropdown').on('click', function (e) {
+        e.preventDefault();
+        console.log('hey');
     });
 };
 

@@ -10078,6 +10078,20 @@ body {
   margin-right: .1rem;
 }
 
+#allSpotsLink {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  #allSpotsLink {
+    display: block;
+  }
+
+  #toggleSpotDropdown {
+    display: none;
+  }
+}
+
 .main {
   padding-top: 80px !important;
   padding-bottom: 20px !important;
@@ -10238,7 +10252,8 @@ body {
 }
 
 @media screen and (max-width: 575px) {
-  .spot-card {
+  .spot-card,
+  .all-spot-card {
     margin: auto;
   }
 }
