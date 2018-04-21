@@ -18,10 +18,25 @@ class Spot extends Component{
         this.toggleDescription = this.toggleDescription.bind(this);
     }
 
+    componentWillMount(){
+        if(localStorage.getItem(`${this.props.name}-bShowDescription`) !== null){
+            if(JSON.parse(localStorage.getItem(`${this.props.name}-bShowDescription`)) === true){
+                this.setState({
+                    showDescription: true
+                })
+            } else {
+                this.setState({
+                    showDescription: false
+                })
+            }
+        }
+    }
+
     toggleDescription(){
         this.setState({
             showDescription: !this.state.showDescription
         })
+        localStorage.setItem(`${this.props.name}-bShowDescription`, JSON.stringify(!this.state.showDescription))
     }
 
     render(){

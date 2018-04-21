@@ -643,9 +643,6 @@ var Provider = function (_Component) {
         value: function updateLocalStorage(res) {
             localStorage.setItem(this.props.name + '-dataUpdated', JSON.stringify(Date.now()));
             localStorage.setItem(this.props.name + '-data', JSON.stringify(res.data));
-            localStorage.setItem(this.props.name + '-surfingData', JSON.stringify(res.data.surfData));
-            localStorage.setItem(this.props.name + '-currentWeatherData', JSON.stringify(res.data.currentWeather));
-            localStorage.setItem(this.props.name + '-weatherForecastData', JSON.stringify(res.data.weatherForecast));
         }
     }, {
         key: 'updateCard',
@@ -37947,11 +37944,27 @@ var Spot = function (_Component) {
     }
 
     _createClass(Spot, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            if (localStorage.getItem(this.props.name + '-bShowDescription') !== null) {
+                if (JSON.parse(localStorage.getItem(this.props.name + '-bShowDescription')) === true) {
+                    this.setState({
+                        showDescription: true
+                    });
+                } else {
+                    this.setState({
+                        showDescription: false
+                    });
+                }
+            }
+        }
+    }, {
         key: 'toggleDescription',
         value: function toggleDescription() {
             this.setState({
                 showDescription: !this.state.showDescription
             });
+            localStorage.setItem(this.props.name + '-bShowDescription', JSON.stringify(!this.state.showDescription));
         }
     }, {
         key: 'render',

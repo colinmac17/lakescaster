@@ -29,9 +29,7 @@
                                             @endforeach
                                         </div>
                                     </div>
-                                    {{--<a class="dropdown-item" href="#">Lake {{$sLake}}</a>--}}
                                 @endforeach
-
 
                             </div>
                         </li>
