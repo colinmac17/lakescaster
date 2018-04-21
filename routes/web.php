@@ -16,13 +16,15 @@ use App\Http\Controllers\SpotController;
 //Landing Page
 Route::get('/', function () {
     $aaSpots = SpotController::$aaSpotsByLatandLon;
+    $aLakes = SpotController::$aLakes;
     $bHome = true;
-    return view('welcome', compact('aaSpots', 'bHome'));
+    return view('welcome', compact('aaSpots', 'bHome', 'aLakes'));
 });
 
 Route::get('developers', function(){
     $aaSpots = SpotController::$aaSpotsByLatandLon;
-    return view('developers', compact('aaSpots'));
+    $aLakes = SpotController::$aLakes;
+    return view('developers', compact('aaSpots', 'aLakes'));
 });
 
 //Email Auth Routes

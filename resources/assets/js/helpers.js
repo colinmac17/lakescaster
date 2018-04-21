@@ -11,6 +11,9 @@ $(document).ready(function(){
     helpers.toggleActive();
     helpers.showSpots();
     helpers.hideSpots();
+    helpers.showUser();
+    helpers.hideUser();
+    helpers.multiLevelDropdown();
 });
 
 //Create Helpers Object
@@ -102,9 +105,9 @@ helpers.toggleActive = () => {
 }
 
 helpers.showSpots = () => {
-    $('body').on('mouseenter', '.dropdown', (e) => {
-        const dropdown = $('.dropdown');
-        const menu = $('.dropdown-menu');
+    $('body').on('mouseenter', '#toggleSpotDropdown', (e) => {
+        const dropdown = $('#toggleSpotDropdown');
+        const menu = $('#toggleSpotDropdown #main-dropdown-menu');
         dropdown.addClass('show');
         menu.addClass('show');
         $('#spotDropdown').attr('aria-expanded', true);
@@ -112,11 +115,48 @@ helpers.showSpots = () => {
 }
 
 helpers.hideSpots = () => {
-    $('.dropdown').on('mouseleave', (e) => {
-        const dropdown = $('.dropdown');
-        const menu = $('.dropdown-menu');
+    $('#toggleSpotDropdown').on('mouseleave', (e) => {
+        const dropdown = $('#toggleSpotDropdown');
+        const menu = $('#toggleSpotDropdown #main-dropdown-menu');
         dropdown.removeClass('show');
         menu.removeClass('show');
         $('#spotDropdown').attr('aria-expanded', false);
+    });
+}
+
+helpers.showUser = () => {
+    $('body').on('mouseenter', '#toggleUserDropdown', (e) => {
+        const dropdown = $('#toggleUserDropdown');
+        const menu = $('#toggleUserDropdown .dropdown-menu');
+        dropdown.addClass('show');
+        menu.addClass('show');
+        $('#spotDropdown').attr('aria-expanded', true);
+    });
+}
+
+helpers.hideUser = () => {
+    $('#toggleUserDropdown').on('mouseleave', (e) => {
+        const dropdown = $('#toggleUserDropdown');
+        const menu = $('#toggleUserDropdown .dropdown-menu');
+        dropdown.removeClass('show');
+        menu.removeClass('show');
+        $('#spotDropdown').attr('aria-expanded', false);
+    });
+}
+
+helpers.multiLevelDropdown = () => {
+    $('#toggleSpotDropdown .dropdown-menu a.dropdown-toggle').on('mouseenter', function(e) {
+        if (!$(this).next().hasClass('show')) {
+            $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+        }
+
+        var $subMenu = $(this).next(".dropdown-menu");
+        $subMenu.toggleClass('show');
+
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+            $('.dropdown-submenu .show').removeClass("show");
+        });
+
+        return false;
     });
 }

@@ -16,7 +16,8 @@ class AccountController extends Controller
     public function index()
     {
         $aaSpots = SpotController::$aaSpotsByLatandLon;
-        return view('settings', compact('aaSpots'));
+        $aLakes = SpotController::$aLakes;
+        return view('settings', compact('aaSpots', 'aLakes'));
     }
 
     public function deleteAccount()

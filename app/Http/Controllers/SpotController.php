@@ -32,12 +32,13 @@ class SpotController extends Controller
      */
     public function findByLatAndLongitude($sLake, $sSpotName, $iId)
     {
-        $aaSpots = SpotController::$aaSpotsByLatandLon;
+        $aaSpots = self::$aaSpotsByLatandLon;
         $aSpot = $aaSpots[$iId -1];
         $sName = $aSpot['name'];
+        $aLakes = self::$aLakes;
         $sPath = 'spots/' . $sLake . '/' . $sSpotName . '/' . $iId;
         $sDescription = $aSpot['sDescription'];
-        return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sDescription'));
+        return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sDescription', 'aLakes'));
     }
 
     public function getTimeZoneOffset($sTimeZone)

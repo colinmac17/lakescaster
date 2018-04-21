@@ -12,14 +12,24 @@
                 <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if(isset($aaSpots))
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="toggleSpotDropdown">
                             <a id="spotDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Reports
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="spotDropdown">
+                            <div id="main-dropdown-menu" class="dropdown-menu" aria-labelledby="spotDropdown">
 
-                                @foreach($aaSpots as $aSpot)
-                                    <a class="dropdown-item" href="/spots/{{$aSpot['lake']}}/{{$aSpot['short']}}/{{$aSpot['id']}}">{{$aSpot['name']}}</a>
+                                @foreach($aLakes as $sLake)
+                                    <div class="dropdown-submenu">
+                                        <a id="dropdown-{{$sLake}}" class="dropdown-item dropdown-toggle" href="#">Lake {{$sLake}}</a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdown-{{$sLake}}">
+                                            @foreach($aaSpots as $aSpot)
+                                                @if($aSpot['lake'] === strtolower($sLake))
+                                                <a class="dropdown-item"        href="/spots/{{$aSpot['lake']}}/{{$aSpot['short']}}/{{$aSpot['id']}}">{{$aSpot['name']}}</a>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    {{--<a class="dropdown-item" href="#">Lake {{$sLake}}</a>--}}
                                 @endforeach
 
 
@@ -46,7 +56,7 @@
                         <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     @else
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="toggleUserDropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
