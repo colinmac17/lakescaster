@@ -4,6 +4,11 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 <i class="ion-icon ion-radio-waves" style="font-size: 20px; margin-right:5px;"></i>{{ config('app.name', 'Lakescaster') }}
             </a>
+            <ul class="navbar-nav ml-auto mr-3" id="allSpotsLink">
+                <li class="nav-item">
+                    <a class="nav-link" href="/spots">Reports</a>
+                </li>
+            </ul>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -12,16 +17,24 @@
                 <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if(isset($aaSpots))
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="toggleSpotDropdown">
                             <a id="spotDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Reports
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="spotDropdown">
+                            <div id="main-dropdown-menu" class="dropdown-menu" aria-labelledby="spotDropdown">
 
-                                @foreach($aaSpots as $aSpot)
-                                    <a class="dropdown-item" href="/spots/{{$aSpot['lake']}}/{{$aSpot['short']}}/{{$aSpot['id']}}">{{$aSpot['name']}}</a>
+                                @foreach($aLakes as $sLake)
+                                    <div class="dropdown-submenu">
+                                        <a id="dropdown-{{$sLake}}" class="dropdown-item dropdown-toggle" href="#">Lake {{$sLake}}</a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdown-{{$sLake}}">
+                                            @foreach($aaSpots as $aSpot)
+                                                @if($aSpot['lake'] === strtolower($sLake))
+                                                <a class="dropdown-item"        href="/spots/{{$aSpot['lake']}}/{{$aSpot['short']}}/{{$aSpot['id']}}">{{$aSpot['name']}}</a>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 @endforeach
-
 
                             </div>
                         </li>
@@ -46,7 +59,7 @@
                         <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     @else
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="toggleUserDropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>

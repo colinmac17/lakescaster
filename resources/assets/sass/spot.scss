@@ -21,3 +21,30 @@
   border-style: groove;
   border-color: inherit;
 }
+
+.today-data{
+  font-size: 16px;
+}
+
+.description-toggle:hover {
+  cursor:pointer;
+  text-decoration: underline;
+}
+
+.spot-card {
+  width: 18rem;
+}
+
+.pointer{
+  cursor: pointer
+}
+
+.no-border {
+  border: none;
+}
+
+@media screen and (max-width: 575px){
+  .spot-card, .all-spot-card {
+    margin: auto;
+  }
+}
