@@ -9,6 +9,8 @@ $(document).ready(function(){
     helpers.toggleEmailRegistrationForm();
     helpers.searchSpot();
     helpers.toggleActive();
+    helpers.showSpots();
+    helpers.hideSpots();
 });
 
 //Create Helpers Object
@@ -96,5 +98,25 @@ helpers.toggleActive = () => {
                 $("#spot-nav-links .nav-item [data-path='reviews']").addClass('active');
                 break;
         }
+    });
+}
+
+helpers.showSpots = () => {
+    $('body').on('mouseenter', '.dropdown', (e) => {
+        const dropdown = $('.dropdown');
+        const menu = $('.dropdown-menu');
+        dropdown.addClass('show');
+        menu.addClass('show');
+        $('#spotDropdown').attr('aria-expanded', true);
+    });
+}
+
+helpers.hideSpots = () => {
+    $('.dropdown').on('mouseleave', (e) => {
+        const dropdown = $('.dropdown');
+        const menu = $('.dropdown-menu');
+        dropdown.removeClass('show');
+        menu.removeClass('show');
+        $('#spotDropdown').attr('aria-expanded', false);
     });
 }
