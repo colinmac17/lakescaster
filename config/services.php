@@ -39,13 +39,13 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => $bProd ? env('GOOGLE_CALLBACK_URL', 'https://lakescaster.dev/login/google/callback') : 'https://lakescaster.dev/login/google/callback'
+        'redirect' => $bProd ? env('GOOGLE_CALLBACK_URL', 'https://lakescaster.com/login/google/callback') : 'https://lakescaster.dev/login/google/callback'
     ],
 
     'facebook' => [
         'client_id' => env('FACEBOOK_APP_ID'),
         'client_secret' => env('FACEBOOK_APP_SECRET'),
-        'redirect' => $bProd ? env('FACEBOOK_CALLBACK_URL', 'https://lakescaster.dev/login/facebook/callback') : 'https://lakescaster.dev/login/facebook/callback'
+        'redirect' => $bProd ? env('FACEBOOK_CALLBACK_URL', 'https://lakescaster.com/login/facebook/callback') : 'https://lakescaster.dev/login/facebook/callback'
     ]
 
 ];

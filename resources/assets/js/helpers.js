@@ -9,6 +9,12 @@ $(document).ready(function(){
     helpers.toggleEmailRegistrationForm();
     helpers.searchSpot();
     helpers.toggleActive();
+    helpers.showSpots();
+    helpers.hideSpots();
+    helpers.showUser();
+    helpers.hideUser();
+    helpers.multiLevelDropdown();
+    // helpers.handleSpotDropDownClick();
 });
 
 //Create Helpers Object
@@ -96,5 +102,69 @@ helpers.toggleActive = () => {
                 $("#spot-nav-links .nav-item [data-path='reviews']").addClass('active');
                 break;
         }
+    });
+}
+
+helpers.showSpots = () => {
+    $('body').on('mouseenter', '#toggleSpotDropdown', (e) => {
+        const dropdown = $('#toggleSpotDropdown');
+        const menu = $('#toggleSpotDropdown #main-dropdown-menu');
+        dropdown.addClass('show');
+        menu.addClass('show');
+        $('#spotDropdown').attr('aria-expanded', true);
+    });
+}
+
+helpers.hideSpots = () => {
+    $('#toggleSpotDropdown').on('mouseleave', (e) => {
+        const dropdown = $('#toggleSpotDropdown');
+        const menu = $('#toggleSpotDropdown #main-dropdown-menu');
+        dropdown.removeClass('show');
+        menu.removeClass('show');
+        $('#spotDropdown').attr('aria-expanded', false);
+    });
+}
+
+helpers.showUser = () => {
+    $('body').on('mouseenter', '#toggleUserDropdown', (e) => {
+        const dropdown = $('#toggleUserDropdown');
+        const menu = $('#toggleUserDropdown .dropdown-menu');
+        dropdown.addClass('show');
+        menu.addClass('show');
+        $('#spotDropdown').attr('aria-expanded', true);
+    });
+}
+
+helpers.hideUser = () => {
+    $('#toggleUserDropdown').on('mouseleave', (e) => {
+        const dropdown = $('#toggleUserDropdown');
+        const menu = $('#toggleUserDropdown .dropdown-menu');
+        dropdown.removeClass('show');
+        menu.removeClass('show');
+        $('#spotDropdown').attr('aria-expanded', false);
+    });
+}
+
+helpers.multiLevelDropdown = () => {
+    $('#toggleSpotDropdown .dropdown-menu a.dropdown-toggle').on('mouseenter', function(e) {
+        if (!$(this).next().hasClass('show')) {
+            $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+        }
+
+        var $subMenu = $(this).next(".dropdown-menu");
+        $subMenu.toggleClass('show');
+
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+            $('.dropdown-submenu .show').removeClass("show");
+        });
+
+        return false;
+    });
+}
+
+helpers.handleSpotDropDownClick = () => {
+    $('#toggleSpotDropdown').on('click', (e) => {
+       e.preventDefault();
+       console.log('hey');
     });
 }

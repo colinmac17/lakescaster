@@ -1,7 +1,6 @@
 <?php
 
-$bProd = false;
-if(isset($_SERVER['RDS_HOSTNAME'])) $bProd = true;
+$bProd = isset($_SERVER['RDS_HOSTNAME']);
 
 return [
 

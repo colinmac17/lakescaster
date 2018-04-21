@@ -16,13 +16,15 @@ use App\Http\Controllers\SpotController;
 //Landing Page
 Route::get('/', function () {
     $aaSpots = SpotController::$aaSpotsByLatandLon;
+    $aLakes = SpotController::$aLakes;
     $bHome = true;
-    return view('welcome', compact('aaSpots', 'bHome'));
+    return view('welcome', compact('aaSpots', 'bHome', 'aLakes'));
 });
 
 Route::get('developers', function(){
     $aaSpots = SpotController::$aaSpotsByLatandLon;
-    return view('developers', compact('aaSpots'));
+    $aLakes = SpotController::$aLakes;
+    return view('developers', compact('aaSpots', 'aLakes'));
 });
 
 //Email Auth Routes
@@ -38,6 +40,7 @@ Route::get('user/settings', 'AccountController@index');
 
 // App Routes
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('spots', 'SpotController@getAllSpots');
 Route::get('spots/{lake}/{spot}/{id}', 'SpotController@findByLatAndLongitude');
 Route::get('spots/{lake}/{spot}/{id}/forecast', 'SpotController@findByLatAndLongitude');
 Route::get('spots/{lake}/{spot}/{id}/media', 'SpotController@findByLatAndLongitude');
