@@ -43,6 +43,12 @@
   border: none;
 }
 
+@media screen and (max-width: 992px){
+  .all-spot-card{
+    margin: 3px;
+  }
+}
+
 @media screen and (max-width: 575px){
   .spot-card, .all-spot-card {
     margin: auto;
