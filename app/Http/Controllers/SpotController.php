@@ -40,16 +40,18 @@ class SpotController extends Controller
         $aSpot = $aaSpots[$iId -1];
         $sName = $aSpot['name'];
         $aLakes = self::$aLakes;
+        $aSimpleSpots = self::getSimpleSpots();
         $sPath = 'spots/' . $sLake . '/' . $sSpotName . '/' . $iId;
         $sDescription = $aSpot['sDescription'];
-        return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sDescription', 'aLakes'));
+        return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sDescription', 'aLakes', 'aSimpleSpots'));
     }
 
     public function getAllSpots()
     {
         $aaSpots = self::$aaSpotsByLatandLon;
         $aLakes = self::$aLakes;
-        return view('allspots', compact('aaSpots', 'aLakes'));
+        $aSimpleSpots = SpotController::getSimpleSpots();
+        return view('allspots', compact('aaSpots', 'aLakes', 'aSimpleSpots'));
     }
 
     public function getTimeZoneOffset($sTimeZone)
@@ -96,11 +98,12 @@ class SpotController extends Controller
     {
         $aSimpleSpots = [];
         $aaSpots = SpotController::$aaSpotsByLatandLon;
-        foreach($aaSpots as $aSpot){
-            $aSimpleSpots[] = strtolower($aSpot['name']);
+        foreach($aaSpots as $iK => $aSpot){
+            $aSimpleSpots[$iK]['name'] = $aSpot['name'];
+            $aSimpleSpots[$iK]['link'] = 'spots/' . $aSpot['lake'] . '/' . $aSpot['short'] . '/' . $aSpot['id'];
         }
 
-        return $aSimpleSpots;
+        return json_encode($aSimpleSpots);
     }
 }
 

@@ -18,13 +18,15 @@ Route::get('/', function () {
     $aaSpots = SpotController::$aaSpotsByLatandLon;
     $aLakes = SpotController::$aLakes;
     $bHome = true;
-    return view('welcome', compact('aaSpots', 'bHome', 'aLakes'));
+    $aSimpleSpots = SpotController::getSimpleSpots();
+    return view('welcome', compact('aaSpots', 'bHome', 'aLakes', 'aSimpleSpots'));
 });
 
 Route::get('developers', function(){
     $aaSpots = SpotController::$aaSpotsByLatandLon;
     $aLakes = SpotController::$aLakes;
-    return view('developers', compact('aaSpots', 'aLakes'));
+    $aSimpleSpots = SpotController::getSimpleSpots();
+    return view('developers', compact('aaSpots', 'aLakes', 'aSimpleSpots'));
 });
 
 //Email Auth Routes

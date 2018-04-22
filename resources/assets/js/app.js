@@ -11,6 +11,7 @@ require('./bootstrap');
  * Load React Components
  */
 
+require('./components/Search/Searchbox');
 require('./components/Spot/Spot');
 require('./components/Provider');
 

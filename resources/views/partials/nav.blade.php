@@ -1,14 +1,19 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-laravel">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ Auth::guest() ? url('/') : url('/dashboard') }}">
                 <i class="ion-icon ion-radio-waves" style="font-size: 20px; margin-right:5px;"></i>{{ config('app.name', 'Lakescaster') }}
             </a>
-            <ul class="navbar-nav ml-auto mr-3" id="allSpotsLink">
-                <li class="nav-item">
-                    <a class="nav-link" href="/spots">Reports</a>
-                </li>
-            </ul>
+                <ul class="navbar-nav mr-auto ml-2" id="allSpotsLink">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/spots">Reports</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto mr-4" id="searchBarMobile">
+                    <form id="searchFormMobile" class="form-inline">
+                        <div id="searchBoxMobile" data-spots="{{$aSimpleSpots}}"></div>
+                    </form>
+                </ul>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -49,11 +54,12 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-                    {{--<form id="searchForm" class="form-inline mr-5" method="POST" action="spot/search">--}}
-                        {{--@csrf--}}
-                        {{--<input id="searchInput" class="form-control mr-sm-2" name="search" type="text" placeholder="Search" aria-label="Search" required>--}}
+                    <form id="searchForm" class="form-inline mr-5" method="" action="">
+                        @csrf
+                        <div id="searchBox" data-spots="{{$aSimpleSpots}}"></div>
+                        {{--<input id="searchBox" data-spots="{{$aSimpleSpots}}" class="form-control mr-sm-2" name="search" type="text" placeholder="Search" aria-label="Search" required>--}}
                         {{--<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>--}}
-                    {{--</form>--}}
+                    </form>
                     <!-- Authentication Links -->
                     @guest
                         <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
