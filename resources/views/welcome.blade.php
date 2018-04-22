@@ -87,7 +87,7 @@
             <div class="col-md-7" id="forecastFeature">
                 <h2 class="featurette-heading">Raw Surf Forecasting. <span class="text-muted">Check your local spot.</span></h2>
                 <p class="lead">Our platform utilize buoy data from the Great Lakes Coastal Forecasting System to predict wave height, wave direction, wave period, wind velocity and wind direction.</p>
-                <p class="text-center"><a href="/register" role="button" class="btn btn-primary btn-lg">Sign Up</a></p>
+                <p class="text-center"><a href="{{Auth::guest() ? url('/register') : url('/spots')}}" role="button" class="btn btn-primary btn-lg">{{Auth::guest() ? 'Sign Up' : 'Check The Surf' }}</a></p>
             </div>
             <div class="col-md-5">
                 <img class="featurette-image img-fluid mx-auto" src="https://res.cloudinary.com/soccerresume/image/upload/v1520744105/lakescaster/hayden-hunt-269455-unsplash.jpg" alt="Surfer Walking On Beach">
@@ -100,7 +100,7 @@
             <div class="col-md-7 order-md-2" id="feedbackFeature">
                 <h2 class="featurette-heading">Provide User Feedback. <span class="text-muted">Create a better experience.</span></h2>
                 <p class="lead">By rating spots and posting live updates on current conditions, you help Great Lake's surfers make the most informed decision on whether they should paddle out. You also help us improve our platform. Yewww!</p>
-                <p class="text-center"><a href="/register" role="button" class="btn btn-primary btn-lg">Sign Up</a></p>
+                <p class="text-center"><a href="{{Auth::guest() ? url('/register') : url('/spots')}}" role="button" class="btn btn-primary btn-lg">{{Auth::guest() ? 'Sign Up' : 'Provide Feedback' }}</a></p>
             </div>
             <div class="col-md-5 order-md-1">
                 <img class="featurette-image img-fluid mx-auto" src="https://res.cloudinary.com/soccerresume/image/upload/v1520744374/lakescaster/sebastian-leon-prado-562482-unsplash.jpg" alt="Stoke Sign">
@@ -113,7 +113,7 @@
             <div class="col-md-7" id="communityFeature">
                 <h2 class="featurette-heading">Jump On In. <span class="text-muted">Join the Surf Community.</span></h2>
                 <p class="lead">With plenty of beaches and breaks spread accross the five Great Lakes, the Surfing Community on the Greats continues to grow. From Chicago to Toronto, you can find surfers paddling out all year round.</p>
-                <p class="text-center"><a href="/register" role="button" class="btn btn-primary btn-lg">Sign Up</a></p>
+                <p class="text-center"><a href="{{Auth::guest() ? url('/register') : url('/spots')}}" role="button" class="btn btn-primary btn-lg">{{Auth::guest() ? 'Sign Up' : 'Get Involved' }}</a></p>
             </div>
             <div class="col-md-5">
                 <img class="featurette-image img-fluid mx-auto" src="https://res.cloudinary.com/soccerresume/image/upload/v1520744354/lakescaster/julie-macey-275889-unsplash.jpg" alt="Surfer Jumping">

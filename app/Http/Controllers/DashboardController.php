@@ -26,7 +26,8 @@ class DashboardController extends Controller
     {
         $aaSpots = SpotController::$aaSpotsByLatandLon;
         $aLakes = SpotController::$aLakes;
+        $aSimpleSpots = SpotController::getSimpleSpots();
         $name = Auth::user()->name;
-        return view('dashboard', compact('aaSpots', 'name', 'aLakes'));
+        return view('dashboard', compact('aaSpots', 'name', 'aLakes', 'aSimpleSpots'));
     }
 }

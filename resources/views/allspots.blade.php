@@ -8,7 +8,7 @@
             <div class="row">
                 @foreach($aLakes as $sLake)
                     <div class="col-sm-12 col-md-offset-2 col-md-4 p-3">
-                        <div class="card bg-primary all-spot-card" style="width: 18rem;">
+                        <div class="card bg-primary all-spot-card">
                             <div class="card-header text-white">
                                 Lake {{$sLake}}
                             </div>
