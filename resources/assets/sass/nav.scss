@@ -101,11 +101,14 @@
 }
 @media (max-width: 400px) {
   #searchBarMobile input {
-    width: 100px;
+    width: 125px;
   }
 }
 
-@media (max-width: 330px) {
+@media (max-width: 355px) {
+  #searchBarMobile input {
+    width: 100px;
+  }
   .navbar-brand{
     font-size: 12px;
   }
