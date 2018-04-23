@@ -56,14 +56,15 @@
 
     <div id="marketing" class="container marketing">
         <div id="mobileLoginRegister">
-            <h3 class="text-center">Join The Movement</h3>
             @guest
+                <h3 class="text-center">Join The Movement</h3>
                 <p class="text-center">
             <a class="btn btn-success" href="{{url('/register')}}">Register</a>
                 </p>
                 <p class="text-center"><span>Already have an account?<a class="btn btn-link" href="{{url('/login')}}">Login</a></span></p>
             @else
-            <p class="text-center"><button class="btn btn-success" href="{{url('/dashboard')}}">My Profile</button></p>
+                <h3 class="text-center">You're logged in</h3>
+            <p class="text-center"><a class="btn btn-link" href="{{url('/dashboard')}}">My Profile</a></p>
             @endguest
         </div>
         <h1 class="text-center p-5 font-weight-bold">How It Works</h1>
