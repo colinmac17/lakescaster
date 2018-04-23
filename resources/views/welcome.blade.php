@@ -55,6 +55,17 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <div id="marketing" class="container marketing">
+        <div id="mobileLoginRegister">
+            <h3 class="text-center">Join The Movement</h3>
+            @guest
+                <p class="text-center">
+            <a class="btn btn-success" href="{{url('/register')}}">Register</a>
+                </p>
+                <p class="text-center"><span>Already have an account?<a class="btn btn-link" href="{{url('/login')}}">Login</a></span></p>
+            @else
+            <button href="{{url('/dashboard')}}">My Profile</button>
+            @endguest
+        </div>
         <h1 class="text-center p-5 font-weight-bold">How It Works</h1>
         <!-- Three columns of text below the carousel -->
         <div class="row">
@@ -77,6 +88,8 @@
                 <p><a id="communityBtn" class="btn btn-secondary how-it-works-btn" href="#" role="button">Learn More</a></p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
+
+        <p class="text-center mt-5 mb-5">Are you a software developer interested in contributing to this project? <a class="btn btn-link" href="{{url('/developers')}}">Learn more</a></p>
 
 
         <!-- START THE FEATURETTES -->
