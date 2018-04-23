@@ -63,7 +63,7 @@
                 </p>
                 <p class="text-center"><span>Already have an account?<a class="btn btn-link" href="{{url('/login')}}">Login</a></span></p>
             @else
-            <button href="{{url('/dashboard')}}">My Profile</button>
+            <p class="text-center"><button class="btn btn-success" href="{{url('/dashboard')}}">My Profile</button></p>
             @endguest
         </div>
         <h1 class="text-center p-5 font-weight-bold">How It Works</h1>
