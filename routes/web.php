@@ -48,6 +48,7 @@ Route::get('spots/{lake}/{spot}/{id}/forecast', 'SpotController@findByLatAndLong
 Route::get('spots/{lake}/{spot}/{id}/media', 'SpotController@findByLatAndLongitude');
 Route::get('spots/{lake}/{spot}/{id}/reviews', 'SpotController@findByLatAndLongitude');
 Route::post('spot/search', 'SpotController@searchSpots');
+Route::post('spots/{lake}/{spot}/{id}/review', 'ReviewController@submitReview');
 
 //API Routes
 Route::get('api/spots/{lake}/{spot}/{id}', 'APIController@getSpotById');

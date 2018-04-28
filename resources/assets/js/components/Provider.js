@@ -13,6 +13,7 @@ export default class Provider extends Component{
             data: (localStorage.getItem(`${this.props.name}-data`) !== null) ? JSON.parse(localStorage.getItem(`${this.props.name}-data`)) : null,
             date: this.props.date,
             name: this.props.name,
+            bUser: this.props.bUser,
             description: this.props.description,
             surfItems: [],
             surfForecast: [],
@@ -28,6 +29,7 @@ export default class Provider extends Component{
         this.updateCard = this.updateCard.bind(this);
         this.updateLocalStorage = this.updateLocalStorage.bind(this)
         this.formatDirection = this.formatDirection.bind(this)
+        this.formatWaveHeight = this.formatWaveHeight.bind(this)
     }
 
     componentDidMount(){
@@ -51,7 +53,7 @@ export default class Provider extends Component{
         if(bUpdate) {
             axios.get(path)
                 .then((res) => {
-                    this.setState({data: res.data, lastUpdated: now})
+                    this.setState({data: res.data, lastUpdated: now, bShowRefresh: false})
                     this.getSurfItems()
                     this.getWeatherItems()
                     this.updateLocalStorage(res)
@@ -80,12 +82,18 @@ export default class Provider extends Component{
             }).catch(err => console.log(err))
     }
 
+    formatWaveHeight(iHeight){
+        let lowNum = Math.floor(iHeight)
+        let highNum = lowNum + 1
+        return `${lowNum}-${highNum}`
+    }
+
     getSurfItems(){
         this.setState({
           surfItems: [
                   {
                       "title": "Wave Height",
-                      "desc": this.state.data !== null ? `${parseFloat(this.state.data.surfData[0].sWaveHeight).toFixed(2)} feet` : '...Loading'
+                      "desc": this.state.data !== null ? `${this.formatWaveHeight(parseFloat(this.state.data.surfData[0].sWaveHeight).toFixed(2))} feet` : '...Loading'
                   },
                   {
                       "title": "Wave Direction",
@@ -106,16 +114,16 @@ export default class Provider extends Component{
         this.setState({
             weatherItems: [
                 {
-                    "title": "Temperature",
+                    "title": "Air Temperature",
                     "desc": this.state.data !== null ? `${Math.round(this.state.data.currentWeather.iTemp)} °F ${getWeatherDescription(this.state.data.currentWeather.sDescription.trim())}` : '...Loading'
                 },
                 {
-                    "title": "Wind Speed",
-                    "desc": this.state.data !== null ? `${(this.state.data.currentWeather.iWindSpeed).toFixed(2)} meters/second` : '...Loading'
+                    "title": "Water Temperature",
+                    "desc": this.state.data !== null ? `${parseFloat(Math.round(this.state.data.surfData[0].iCurrentWaterTemp))} °F` : '...Loading'
                 },
                 {
-                    "title": "Wind Direction",
-                    "desc": this.state.data !== null ? `${this.formatDirection(this.state.data.currentWeather.iWindDirection)}` : '...Loading'
+                    "title": "Wind Speed",
+                    "desc": this.state.data !== null ? `${(this.state.data.currentWeather.iWindSpeed).toFixed(2)} (m/s) - ${this.formatDirection(this.state.data.currentWeather.iWindDirection)}` : '...Loading'
                 }
             ]
         })

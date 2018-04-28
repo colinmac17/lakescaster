@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
 
 class SpotController extends Controller
 {
@@ -43,7 +44,9 @@ class SpotController extends Controller
         $aSimpleSpots = self::getSimpleSpots();
         $sPath = 'spots/' . $sLake . '/' . $sSpotName . '/' . $iId;
         $sDescription = $aSpot['sDescription'];
-        return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sDescription', 'aLakes', 'aSimpleSpots'));
+        $bUser = Auth::guest() ? 0 : 1;
+        $aReviews = ReviewController::getReviewsBySpot($iId);
+        return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sDescription', 'aLakes', 'aSimpleSpots', 'bUser'));
     }
 
     public function getAllSpots()

@@ -77,6 +77,7 @@ class APIController extends Controller
     public function getWaveData($sLake, $iLat, $iLong, $sStart, $sEnd, $sTZOffset)
     {
         $oSpotController = new SpotController();
+        //most of the way data
         $sWaveEndpoint = $oSpotController->GLERL_ENDPOINT . 'lake=' . $sLake . '&i=' . $iLong . '&j=' . $iLat . '&v=wvh,wvd,wvp&t=forecast&st=' . $sStart . '&et=' . $sEnd . '&u=e' . '&order=asc&pv=1&tzf=' . $sTZOffset .'&f=csv';
         $wave_txt_file = file_get_contents($sWaveEndpoint);
         $waveRows = explode("\n", $wave_txt_file);
@@ -85,11 +86,24 @@ class APIController extends Controller
             $data = explode(',',$row);
             $aWaveFormattedRows[] = $data;
         }
-        return $aWaveFormattedRows;
+        //Water temp data
+        $sWaterTempEndpoint = $oSpotController->GLERL_ENDPOINT . 'lake=' . $sLake . '&i=' . $iLong . '&j=' . $iLat . '&v=temp&st=' . $sStart . '&et=' . $sEnd . '&rdepth=0&u=e&order=asc&pv=1&tzf=' . $sTZOffset . '&f=csv';
+        $water_temp_file = file_get_contents($sWaterTempEndpoint);
+        $waterTempRows = explode("\n", $water_temp_file);
+        $aWaterFormattedRows = [];
+        foreach($waterTempRows as $row){
+            $data = explode(',', $row);
+            $aWaterFormattedRows[] = $data;
+        }
+
+        return [$aWaveFormattedRows, $aWaterFormattedRows];
     }
 
-    public function cleanWaveData($aaWaveData)
+    public function cleanWaveData($aaData)
     {
+        $aaWaveData = $aaData[0];
+        $aaWaterData = $aaData[1];
+        $iWaterTemp = NULL;
         $aaCleanWaveData = [];
         foreach($aaWaveData as $key => $aWaveData) {
             if ($key > 4 && !empty($aWaveData[0])) {
@@ -97,11 +111,21 @@ class APIController extends Controller
                     'dTime' => $aWaveData[0],
                     'sWaveHeight' => $aWaveData[1],
                     'sWaveDirection' => $aWaveData[2],
-                    'sWavePeriod' => $aWaveData[3]
+                    'sWavePeriod' => $aWaveData[3],
                 ];
                 $aaCleanWaveData[] = $aData;
             }
         }
+
+        foreach($aaCleanWaveData as $iK => $aData){
+            foreach($aaWaterData as $iKey => $aWaterData){
+                if($iKey > 5 && !empty($aWaterData[0])){
+                    if(!is_null($iWaterTemp)) break;
+                    $iWaterTemp = $aWaterData[1];
+                }
+            }
+        }
+        $aaCleanWaveData[0]['iCurrentWaterTemp'] = $iWaterTemp;
 
         return $aaCleanWaveData;
     }
