@@ -11,7 +11,9 @@ class Spot extends Component{
             path: this.props.path,
             date: this.props.date,
             name: this.props.name,
+            bUser: parseInt(this.props.bUser),
             user: this.props.user,
+            reviews: JSON.parse(this.props.reviews),
             description: this.props.description,
             showDescription: true
         }
@@ -42,7 +44,7 @@ class Spot extends Component{
 
     render(){
       return (
-          <Provider bUser={this.state.user} path={this.state.path} description ={this.state.description} apiPath={this.state.apiPath} date={this.state.date} name={this.state.name}>
+          <Provider reviews={this.state.reviews} user={this.state.user} bUser={this.state.bUser} path={this.state.path} description ={this.state.description} apiPath={this.state.apiPath} date={this.state.date} name={this.state.name}>
               <MyContext.Consumer>
                   {(context) => (
                     <div className="container">

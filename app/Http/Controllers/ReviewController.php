@@ -31,6 +31,6 @@ class ReviewController extends Controller
 
     public static function getReviewsBySpot($iSpotId)
     {
-        $aAllReviews = Review::where('spotId', $iSpotId)->get();
+        return Review::where('spotId', $iSpotId)->get();
     }
 }

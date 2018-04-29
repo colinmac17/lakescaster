@@ -45,8 +45,12 @@ class SpotController extends Controller
         $sPath = 'spots/' . $sLake . '/' . $sSpotName . '/' . $iId;
         $sDescription = $aSpot['sDescription'];
         $bUser = Auth::guest() ? 0 : 1;
+        $oUser = $bUser ? Auth::user() : NULL;
+        if(!is_null($oUser)) {
+            $aUser = json_encode(['id' => $oUser->id, 'name' => $oUser->name, 'email' => $oUser->email]);
+        } else $aUser = NULL;
         $aReviews = ReviewController::getReviewsBySpot($iId);
-        return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sDescription', 'aLakes', 'aSimpleSpots', 'bUser'));
+        return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sDescription', 'aLakes', 'aSimpleSpots', 'bUser', 'aReviews', 'aUser'));
     }
 
     public function getAllSpots()

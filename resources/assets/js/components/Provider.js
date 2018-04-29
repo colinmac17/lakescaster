@@ -21,7 +21,9 @@ export default class Provider extends Component{
             weatherForecast: [],
             cardsHidden: false,
             lastUpdated: null,
-            bShowRefresh: false
+            bShowRefresh: false,
+            reviews: this.props.reviews,
+            user: this.props.user
         }
 
         this.getSurfItems = this.getSurfItems.bind(this);

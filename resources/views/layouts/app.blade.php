@@ -1,7 +1,11 @@
 {{--Main APP--}}
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
-    @include('partials.head')
+    @if(isset($sName))
+      @include('partials.spothead')
+    @else
+        @include('partials.head')
+    @endif
 <body>
     @include('partials.nav')
 
