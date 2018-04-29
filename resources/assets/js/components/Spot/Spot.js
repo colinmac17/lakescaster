@@ -11,7 +11,7 @@ class Spot extends Component{
             path: this.props.path,
             date: this.props.date,
             name: this.props.name,
-            bUser: parseInt(this.props.bUser),
+            bUser: this.props.bUser,
             user: this.props.user,
             reviews: JSON.parse(this.props.reviews),
             description: this.props.description,

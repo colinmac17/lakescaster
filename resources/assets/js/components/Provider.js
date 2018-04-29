@@ -35,6 +35,7 @@ export default class Provider extends Component{
     }
 
     componentDidMount(){
+        console.log(JSON.parse(this.state.user))
         const path = this.state.apiPath
         const now = Date.now()
         const bHasUpdated = localStorage.getItem(`${this.props.name}-dataUpdated`) !== null ? true : false
@@ -154,6 +155,7 @@ export default class Provider extends Component{
             <MyContext.Provider
                 value={{
                 state: this.state,
+                bUser: this.state.bUser,
                 lastUpdated: this.state.lastUpdated,
                 surfItems: {
                  today: this.state.surfItems,
