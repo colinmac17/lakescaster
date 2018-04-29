@@ -13,7 +13,6 @@ export default class Provider extends Component{
             data: (localStorage.getItem(`${this.props.name}-data`) !== null) ? JSON.parse(localStorage.getItem(`${this.props.name}-data`)) : null,
             date: this.props.date,
             name: this.props.name,
-            bUser: this.props.bUser,
             description: this.props.description,
             surfItems: [],
             surfForecast: [],
@@ -23,7 +22,8 @@ export default class Provider extends Component{
             lastUpdated: null,
             bShowRefresh: false,
             reviews: this.props.reviews,
-            user: this.props.user
+            user: this.props.user,
+            bAlreadyReviewed: false
         }
 
         this.getSurfItems = this.getSurfItems.bind(this);
@@ -32,10 +32,10 @@ export default class Provider extends Component{
         this.updateLocalStorage = this.updateLocalStorage.bind(this)
         this.formatDirection = this.formatDirection.bind(this)
         this.formatWaveHeight = this.formatWaveHeight.bind(this)
+        this.checkReviewers = this.checkReviewers.bind(this)
     }
 
     componentDidMount(){
-        console.log(JSON.parse(this.state.user))
         const path = this.state.apiPath
         const now = Date.now()
         const bHasUpdated = localStorage.getItem(`${this.props.name}-dataUpdated`) !== null ? true : false
@@ -66,6 +66,10 @@ export default class Provider extends Component{
             this.getWeatherItems()
             this.setState({lastUpdated: JSON.parse(localStorage.getItem(`${this.props.name}-dataUpdated`))})
         }
+
+        if(this.checkReviewers()){
+            this.setState({bAlreadyReviewed: true})
+        }
     }
 
     updateLocalStorage(res){
@@ -78,7 +82,7 @@ export default class Provider extends Component{
         this.setState({cardsHidden: true})
         axios.get(path)
             .then((res) => {
-                this.setState({data: res.data, lastUpdated: Date.now(), cardsHidden: false})
+                this.setState({data: res.data, lastUpdated: Date.now(), cardsHidden: false, bShowRefresh: false})
                 this.getSurfItems()
                 this.getWeatherItems()
                 this.updateLocalStorage(res)
@@ -132,6 +136,17 @@ export default class Provider extends Component{
         })
     }
 
+    checkReviewers(){
+        if(this.props.auth == 1) {
+            let bAlreadyReviewed = false
+            let user = JSON.parse(this.state.user)
+            this.state.reviews.forEach((oReview) => {
+                if(oReview.userId = user.id) bAlreadyReviewed = true
+            })
+            return bAlreadyReviewed
+        } else return false
+    }
+
     formatDirection(iDirection){
         if(iDirection >= 10 && iDirection < 80){
             return 'NE'
@@ -154,8 +169,9 @@ export default class Provider extends Component{
         return(
             <MyContext.Provider
                 value={{
+                auth: parseInt(this.props.auth),
+                bAlreadyReviewed: this.state.bAlreadyReviewed,
                 state: this.state,
-                bUser: this.state.bUser,
                 lastUpdated: this.state.lastUpdated,
                 surfItems: {
                  today: this.state.surfItems,

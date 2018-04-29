@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Review;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,18 @@ class ReviewController extends Controller
 
     public static function getReviewsBySpot($iSpotId)
     {
-        return Review::where('spotId', $iSpotId)->get();
+        $aaReviews = [];
+        $aoReviews = Review::where('spotId', $iSpotId)->orderBy('created_at', 'desc')->get();
+        foreach($aoReviews as $oReview){
+            $oUser = \App\User::where('id', $oReview->userId)->first();
+            $aaReviews[] = [
+                'reviewer' => $oUser->name,
+                'userId' => $oUser->id,
+                'rating' => $oReview->rating,
+                'review' => $oReview->review,
+                'reviewed_at' => date('m/d/Y', strtotime($oReview->created_at))
+            ];
+        }
+        return json_encode($aaReviews);
     }
 }

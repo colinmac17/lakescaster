@@ -48,7 +48,7 @@ class SpotController extends Controller
         $oUser = $bUser ? Auth::user() : NULL;
         if(!is_null($oUser)) {
             $aUser = json_encode(['id' => $oUser->id, 'name' => $oUser->name, 'email' => $oUser->email]);
-        } else $aUser = NULL;
+        } else $aUser = 0;
         $aReviews = ReviewController::getReviewsBySpot($iId);
         return view('spot', compact('sLake', 'sName', 'iId', 'aaSpots', 'sPath', 'sDescription', 'aLakes', 'aSimpleSpots', 'bUser', 'aReviews', 'aUser'));
     }

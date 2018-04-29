@@ -10314,6 +10314,23 @@ body {
   border: none;
 }
 
+.review-setup {
+  margin-bottom: 15px;
+  padding: 5px;
+}
+
+.reviews {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.review {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  background: #e9ebee;
+}
+
 @media screen and (max-width: 992px) {
   .all-spot-card {
     margin: 3px;
