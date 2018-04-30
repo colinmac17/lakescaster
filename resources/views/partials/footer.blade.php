@@ -3,4 +3,4 @@
         <span class="logo-footer">&copy; <a href="https://www.colinmcatee.com" target="_blank">Colin McAtee</a> {{date('Y')}}</span>
     </div>
 </footer>
-<script src="/js/app.js"></script>
+<script src="{{ '/js/app.js' }}"></script>

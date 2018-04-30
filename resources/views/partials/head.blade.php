@@ -19,5 +19,5 @@
     </script>
     <title>{{ config('app.name', 'Surf Cast') }}</title>
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ '/css/app.css' }}" rel="stylesheet">
 </head>

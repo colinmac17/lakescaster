@@ -19,5 +19,5 @@
     </script>
     <title>{{ $sName }} Surf Report</title>
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ '/css/app.css' }}" rel="stylesheet">
 </head>

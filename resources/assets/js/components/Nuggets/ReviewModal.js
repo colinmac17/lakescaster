@@ -15,7 +15,8 @@ class ReviewModal extends Component {
             action: props.action,
             myRating: '',
             myReview: '',
-            reviewId: props.reviewId
+            reviewId: props.reviewId,
+            bHasChanged: false
         }
 
         this.onStarClick = this.onStarClick.bind(this)
@@ -35,6 +36,7 @@ class ReviewModal extends Component {
 
     handleChange(e) {
         let change = {}
+        change['bHasChanged'] = true
         if(this.props.action == 'post') {
             change['review'] = e.target.value
         } else if(this.props.action == 'edit'){
@@ -120,7 +122,7 @@ class ReviewModal extends Component {
                                 </form>
                                     : (this.props.action == 'edit') ?
                                         //Edit Form
-                                        <form onSubmit={(event) => {this.handleReviewSubmit(event,context.state.myReviewId, this.state.myRating != '' ? this.state.myRating : parseInt(context.state.myRating), this.state.myReview != '' ? this.state.myReview : context.state.myReview)}} method="POST" action={"/" + this.props.path + "/review"}>
+                                        <form onSubmit={(event) => {this.handleReviewSubmit(event,context.state.myReviewId, this.state.myRating != '' ? this.state.myRating : parseInt(context.state.myRating), this.state.bHasChanged ? this.state.myReview : context.state.myReview)}} method="POST" action={"/" + this.props.path + "/review"}>
                                             <input type="hidden" name="reviewId" value={context.state.myReviewId} />
                                             <div className="form-group">
                                                 <label htmlFor="review" className="col-form-label">Rating:</label><br/>
@@ -133,7 +135,7 @@ class ReviewModal extends Component {
                                             </div>
                                             <div className="form-group">
                                                 {/*<label htmlFor="message-text" className="col-form-label">Comment:</label>*/}
-                                                <textarea onChange={this.handleChange} name={this.state.myReview != '' ? 'myReview' : 'review'} placeholder="leave a review" className="form-control" id="message-text" value={this.state.myReview != '' ? this.state.myReview : context.state.myReview}></textarea>
+                                                <textarea onChange={this.handleChange} name={this.state.myReview != '' ? 'myReview' : 'review'} placeholder="leave a review" className="form-control" id="message-text" value={this.state.bHasChanged ? this.state.myReview : context.state.myReview}></textarea>
                                             </div>
                                             <div className="modal-footer">
                                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -141,7 +143,7 @@ class ReviewModal extends Component {
                                             </div>
                                         </form> :
                                         //Delete Form
-                                        <form onSubmit={(event) => {this.handleReviewSubmit(event,context.state.myReviewId, this.state.myRating != '' ? this.state.myRating : parseInt(context.state.myRating), this.state.myReview != '' ? this.state.myReview : context.state.myReview)}} method="POST" action={"/" + this.props.path + "/review"}>
+                                        <form onSubmit={(event) => {this.handleReviewSubmit(event,context.state.myReviewId, this.state.myRating != '' ? this.state.myRating : parseInt(context.state.myRating), this.state.myReview != '' ? this.state.bHasChanged : context.state.myReview)}} method="POST" action={"/" + this.props.path + "/review"}>
                                             <p>Are your sure you want to delete your review?</p>
                                             <div className="modal-footer">
                                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
