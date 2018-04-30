@@ -46,11 +46,11 @@ class Reviews extends Component{
                                         :
                                         <p>You have already reviewed this spot. <span onClick={this.openReviewModal} data-target="#editReviewModal" data-toggle="modal" className="btn-link text-primary pointer" role="button">Edit</span> or <span onClick={this.openReviewModal} data-target="#deleteReviewModal" data-toggle="modal" className="btn-link text-primary pointer" role="button">Delete</span> your review.</p>
                                     }
-                                    <ReviewModal action={'post'} spotname={context.state.name} path={context.state.path} />
-                                    <ReviewModal action={'edit'} spotname={context.state.name} path={context.state.path} />
-                                    <ReviewModal action={'delete'} spotname={context.state.name} path={context.state.path} />
+                                    <ReviewModal action={'post'} review={null} rating={null} reviewId={null} spotname={context.state.name} path={context.state.path} />
+                                    <ReviewModal action={'edit'} review={context.state.myReview} rating={context.state.myRating} reviewId={context.state.myReviewId} spotname={context.state.name} path={context.state.path} />
+                                    <ReviewModal action={'delete'} review={context.state.myReview} rating={context.state.myRating} reviewId={context.state.myReviewId} spotname={context.state.name} path={context.state.path} />
                                 </Fragment>
-                             : <p>You must <a className="btn-link" href="https://lakescaster.com/login">login</a> or <a className="btn-link" href="https://lakescaster.com/register">register</a> to leave a review.</p>
+                             : <p>You must <a className="btn-link" href={window.location.origin + '/login'}>login</a> or <a className="btn-link" href={window.location.origin + '/register'}>register</a> to leave a review.</p>
                             }
                         </div>
                         <div className="reviews container">

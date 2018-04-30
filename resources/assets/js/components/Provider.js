@@ -23,7 +23,10 @@ export default class Provider extends Component{
             bShowRefresh: false,
             reviews: this.props.reviews,
             user: this.props.user,
-            bAlreadyReviewed: false
+            bAlreadyReviewed: false,
+            myReview: '',
+            myRating: '',
+            myReviewId: ''
         }
 
         this.getSurfItems = this.getSurfItems.bind(this);
@@ -140,9 +143,14 @@ export default class Provider extends Component{
         if(this.props.auth == 1) {
             let bAlreadyReviewed = false
             let user = JSON.parse(this.state.user)
-            this.state.reviews.forEach((oReview) => {
-                if(oReview.userId = user.id) bAlreadyReviewed = true
-            })
+            if(this.state.reviews.length > 0) {
+                this.state.reviews.forEach((oReview) => {
+                    if (oReview.userId == user.id) {
+                        bAlreadyReviewed = true
+                        this.setState({myReview: oReview.review, myRating: oReview.rating, myReviewId: oReview.id})
+                    }
+                })
+            }
             return bAlreadyReviewed
         } else return false
     }
