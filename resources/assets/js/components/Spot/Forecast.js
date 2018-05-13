@@ -13,7 +13,8 @@ class Forecast extends Component{
         return(
             <MyContext.Consumer>
                 {(context) => (
-                    <h1>Forecast for {context.state.name}</h1>
+                    //{/*<h1>Forecast for {context.state.name}</h1>*/}
+                    <h2>We are still working on developing this feature. Check back soon!</h2>
                 )}
             </MyContext.Consumer>
         )
