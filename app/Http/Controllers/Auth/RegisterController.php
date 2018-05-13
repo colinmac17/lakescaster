@@ -48,9 +48,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $bValidateEmailUnique = true;
+        $user = User::where('email', $data['email'])->first();
+        if($user) $bValidateEmailUnique = false;
+        $emailValidation =  $bValidateEmailUnique ? 'required|string|email|max:255|unique:users' : 'required|string|email|max:255';
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => $emailValidation,
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -63,10 +67,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = User::where('email', $data['email'])->first();
+        if($user){
+            $user->status = 1;
+            $user->name = $data['name'];
+            $user->password = Hash::make($data['password']);
+            $user->save();
+        } else {
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
     }
 }

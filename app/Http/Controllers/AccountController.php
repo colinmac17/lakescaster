@@ -10,7 +10,7 @@ class AccountController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     public function index()
@@ -27,10 +27,21 @@ class AccountController extends Controller
 
         Auth::logout();
 
-        if ($user->delete()) {
+        $user->status = -1;
+
+        if ($user->save()){
 
             session()->flash('message', 'Account deleted succsessfully!');
             return redirect('/');
+        }
+    }
+
+    public function recoverAccount($id){
+
+        $user = User::find($id);
+        $user->status = 1;
+        if($user->save()){
+            return redirect('/dashboard');
         }
     }
 }

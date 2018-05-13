@@ -39,6 +39,13 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
 //User Account Routes
 Route::post('/account/delete', 'AccountController@deleteAccount');
 Route::get('user/settings', 'AccountController@index');
+Route::get('/account/recover', function(){
+    $aaSpots = SpotController::$aaSpotsByLatandLon;
+    $aLakes = SpotController::$aLakes;
+    $aSimpleSpots = SpotController::getSimpleSpots();
+    return view('auth.deleted', compact('aaSpots', 'aLakes', 'aSimpleSpots'));
+})->name('recover');
+Route::post('/account/recover/{id}', 'AccountController@recoverAccount');
 
 // App Routes
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');

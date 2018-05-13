@@ -71,7 +71,13 @@ class LoginController extends Controller
         if ($otherUser !== null && is_null($otherUser->provider_id) && is_null($otherUser->provider)) {
             // user exists and signed up with normal email
             return false;
-        } else {
+        } else if ($otherUser !== null && !is_null($otherUser->provider_id)){
+            //user account was deleted so let them back in
+            $otherUser->status = 1;
+            $otherUser->save();
+            return $otherUser;
+        }  else {
+            //new user!
             $authUser = User::where('provider_id', $user->id)->first();
             if ($authUser) {
                 return $authUser;
