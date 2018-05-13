@@ -8,7 +8,8 @@
         <br/>
         <p>Thank you!</p>
         <form action="/account/recover/{{session()->get('id')}}" method="POST">
-            {{--@csrf--}}
+            @csrf
+            <input type="hidden" value="{{session()->get('id')}}"/>
             <button type="submit" class="btn btn-success">Recover Account</button>
         </form>
         <a role="button" class="btn btn-link" href="https://lakescaster.com">Back to Lakescaster</a>
